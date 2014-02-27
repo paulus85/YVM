@@ -7,17 +7,18 @@ public class IdConst extends Ident{
 
 	private int value;
 
+	
+
 	/**
 	 * Constructeur
 	 * @param nom
 	 * @param type
 	 * @param value
 	 */
-	public IdConst(String nom, Type type, int value) {
-		super(nom, type);
+	public IdConst(Type type, int value) {
+		super(type);
 		this.value = value;
 	}
-
 	
 	
 }

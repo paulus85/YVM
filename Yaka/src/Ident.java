@@ -5,7 +5,6 @@
  */
 public class Ident {
 
-	private String nom;
 
 	private Type type;
 
@@ -14,8 +13,7 @@ public class Ident {
 	 * @param nom
 	 * @param type
 	 */
-	public Ident (String nom, Type type) {
-		this.nom=nom;
+	public Ident (Type type) {
 		this.type=type;
 	}
 }

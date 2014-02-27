@@ -16,8 +16,8 @@ public class IdVar extends Ident{
 	 * @param type
 	 * @param offset
 	 */
-	public IdVar(String nom, Type type, int offset) {
-		super(nom, type);
+	public IdVar(Type type, int offset) {
+		super(type);
 		this.offset = offset;
 	}
 	

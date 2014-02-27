@@ -55,6 +55,15 @@ public class TabIdent {
 	 * @param valeur
 	 */
 	public void creationIdent (Nature nature, String clef, Type type, int valeur) {
+		if (nature == Nature.VARIABLE) {
+			//Dans le cas ou on a une variable, gestion de l'offset
+			offsetEnCours = offsetEnCours +2;
+			IdVar var = new IdVar(type, offsetEnCours);
+			rangeIdent(clef,var);
+		} else if (nature == Nature.CONSTANTE) {
+			IdConst cons = new IdConst (type, valeur) ;
+			rangeIdent (clef,cons);
+		}
 		
 	}
 }
