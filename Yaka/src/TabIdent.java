@@ -1,7 +1,5 @@
 import java.util.HashMap;
 
-
-
 /**
  * Table des idents
  * @author paulriviere
@@ -56,7 +54,7 @@ public class TabIdent {
 	 * @param type
 	 * @param valeur
 	 */
-	public void creationIdent (Enum.Nature nature, String clef, Enum.Type type, int valeur) {
+	public void creationIdent (Nature nature, String clef, Type type, int valeur) {
 		
 	}
 }

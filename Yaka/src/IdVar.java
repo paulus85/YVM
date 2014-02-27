@@ -16,7 +16,7 @@ public class IdVar extends Ident{
 	 * @param type
 	 * @param offset
 	 */
-	public IdVar(String nom, Enum.Type type, int offset) {
+	public IdVar(String nom, Type type, int offset) {
 		super(nom, type);
 		this.offset = offset;
 	}

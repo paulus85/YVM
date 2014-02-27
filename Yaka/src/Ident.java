@@ -7,14 +7,14 @@ public class Ident {
 
 	private String nom;
 
-	private Enum.Type type;
+	private Type type;
 
 	/**
 	 * Constructeur
 	 * @param nom
 	 * @param type
 	 */
-	public Ident (String nom,Enum.Type type) {
+	public Ident (String nom, Type type) {
 		this.nom=nom;
 		this.type=type;
 	}

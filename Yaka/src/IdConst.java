@@ -13,7 +13,7 @@ public class IdConst extends Ident{
 	 * @param type
 	 * @param value
 	 */
-	public IdConst(String nom, Enum.Type type, int value) {
+	public IdConst(String nom, Type type, int value) {
 		super(nom, type);
 		this.value = value;
 	}
