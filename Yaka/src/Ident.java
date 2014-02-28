@@ -6,6 +6,13 @@
 public class Ident {
 
 
+	/**
+	 * @return the type
+	 */
+	public Type getType() {
+		return type;
+	}
+
 	private Type type;
 
 	/**
