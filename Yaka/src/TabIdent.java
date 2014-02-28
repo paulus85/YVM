@@ -8,13 +8,13 @@ import java.util.HashMap;
 public class TabIdent {
 
 	private HashMap<String,Ident> table;
-	private int offsetEnCours=0;
+	public static int offset=0;
 
 	/**
 	 * Constructeur
 	 * @param taille
 	 */
-	public TabIdent (int taille) {
+	public TabIdent () {
 		table = new HashMap<String,Ident> ();
 	}
 
@@ -46,14 +46,14 @@ public class TabIdent {
 
 	}
 
-	/* Methodes de creation d'ident : gestion interne des valeurs et offset */
+	/*/* Methodes de creation d'ident : gestion interne des valeurs et offset 
 	/**
 	 * Creation et ajout d'un ident dans une meme fonction
 	 * @param nature
 	 * @param clef
 	 * @param type
 	 * @param valeur
-	 */
+	 
 	public void creationIdent (Nature nature, String clef, Type type, int valeur) {
 		if (nature == Nature.VARIABLE) {
 			//Dans le cas ou on a une variable, gestion de l'offset
@@ -65,5 +65,5 @@ public class TabIdent {
 			rangeIdent (clef,cons);
 		}
 		
-	}
+	}*/
 }
