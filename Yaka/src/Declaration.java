@@ -8,7 +8,7 @@ public class Declaration {
 	private Boolean isInteger;	
 
 	/**
-	 * Méthode pour sauvegarder le nom d'une constante
+	 * Mï¿½thode pour sauvegarder le nom d'une constante
 	 * @param nom le nom de la constante
 	 */
 	public void setNom(String nom) {
@@ -16,35 +16,53 @@ public class Declaration {
 	}
 	
 	/**
-	 * Méthode pour enregistrer une constante avec valeur entière dans tabIdent
+	 * Mï¿½thode pour enregistrer une constante avec valeur entiï¿½re dans tabIdent
 	 * @param val valeur de la constante
 	 */
-	public void declConst(Integer val) {
-		Yaka.tabIdent.creationIdent(Nature.CONSTANTE, this.nom, Type.ENTIER,val);
+	public void declConst(int val) {
+		IdConst constante = new IdConst(Type.ENTIER, val);
+		Yaka.tabIdent.rangeIdent(this.nom, constante);
 	}
 
 	/**
-	 * Méthode pour enregistrer une constante avec valeur booléenne dans tabIdent
+	 * Mï¿½thode pour enregistrer une constante avec valeur boolï¿½enne dans tabIdent
 	 * @param val valeur de la constante
 	 */
-	public void declConst(Boolean val) {
-		Yaka.tabIdent.creationIdent(Nature.CONSTANTE, this.nom, Type.BOOLEEN,val);
+	public void declConst(boolean val) {
+		IdConst constante = new IdConst(Type.ENTIER, val);
+		Yaka.tabIdent.rangeIdent(this.nom, constante);
+	}
+	
+	/**
+	 * Mï¿½thode pour affecter une constante Ã  une autre
+	 * @param nom nom de la constante source
+	 */
+	public void declConst(String nomSource) {
+		IdConst constante = (IdConst) Yaka.tabIdent.chercheIdent(nomSource);
+		Yaka.tabIdent.rangeIdent(this.nom, constante);
 	}
 
 	/**
-	 * Méthode pour enregistrer le type de(s) la(les) variable(s) déclarée(s) 
-	 * @param b vrai si type entier, faux si type booléen
+	 * Mï¿½thode pour enregistrer le type de(s) la(les) variable(s) dï¿½clarï¿½e(s) 
+	 * @param b vrai si type entier, faux si type boolï¿½en
 	 */
-	public void setIsInteger(Boolean b) {
+	public void setIsInteger(boolean b) {
 		isInteger = b;
 	}
 
 	/**
-	 * Méthode pour enregistrer une variable tabIdent
-	 * @param nom nom de la variable déclarée
+	 * Mï¿½thode pour enregistrer une variable tabIdent
+	 * @param nom nom de la variable dï¿½clarï¿½e
 	 */
 	public void declVar(String nom) {
-		if(isInteger) Yaka.tabIdent.creationIdent(Nature.VARIABLE, nom, Type.ENTIER,null);
-		else Yaka.tabIdent.creationIdent(Nature.VARIABLE, nom, Type.BOOLEEN,null);
+		IdVar variable;
+		Yaka.tabIdent.offset -= 2;
+		if(isInteger) {
+			variable = new IdVar(Type.ENTIER, Yaka.tabIdent.offset);			
+		}
+		else {
+			variable = new IdVar(Type.BOOLEEN, Yaka.tabIdent.offset);
+		}
+		Yaka.tabIdent.rangeIdent(nom, variable);
 	}
 }

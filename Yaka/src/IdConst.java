@@ -4,20 +4,18 @@
  *
  */
 public class IdConst extends Ident{
-
-	private int value;
-
+	private int valInt;
+	private boolean valBool;
 	
-
 	/**
-	 * Constructeur
+	 * Constructeur constante entière
 	 * @param nom
 	 * @param type
 	 * @param value
 	 */
-	public IdConst(Type type, int value) {
+	public IdConst(Type type, int val) {
 		super(type);
-		this.value = value;
+		this.valInt = val;
 	}
 
 
@@ -30,5 +28,14 @@ public class IdConst extends Ident{
 	}
 
 	
-	
+	/**
+	 * Constructeur constante booléenne
+	 * @param nom
+	 * @param type
+	 * @param value
+	 */
+	public IdConst(Type type, boolean val) {
+		super(type);
+		this.valBool = val;
+	}
 }
