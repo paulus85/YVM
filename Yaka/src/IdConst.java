@@ -19,6 +19,16 @@ public class IdConst extends Ident{
 		super(type);
 		this.value = value;
 	}
+
+
+
+	/**
+	 * @return the value
+	 */
+	public int getValue() {
+		return value;
+	}
+
 	
 	
 }

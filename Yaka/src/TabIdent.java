@@ -8,7 +8,10 @@ import java.util.HashMap;
 public class TabIdent {
 
 	private HashMap<String,Ident> table;
-	public static int offset=0;
+	/**
+	 *ATTENTION : decrementation de 2 a chaque declaration de variable. Valeur au debut de l'offset : 0 
+	 */
+	public int offset=0;
 
 	/**
 	 * Constructeur

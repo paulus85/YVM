@@ -10,6 +10,9 @@ public class IdVar extends Ident{
 	private int offset;
 	
 
+	/**
+	 * @return the offset
+	 */
 	public int getOffset() {
 		return offset;
 	}
