@@ -32,6 +32,15 @@ public class Declaration {
 		IdConst constante = new IdConst(Type.ENTIER, val);
 		Yaka.tabIdent.rangeIdent(this.nom, constante);
 	}
+	
+	/**
+	 * M�thode pour affecter une constante à une autre
+	 * @param nom nom de la constante source
+	 */
+	public void declConst(String nomSource) {
+		IdConst constante = (IdConst) Yaka.tabIdent.chercheIdent(nomSource);
+		Yaka.tabIdent.rangeIdent(this.nom, constante);
+	}
 
 	/**
 	 * M�thode pour enregistrer le type de(s) la(les) variable(s) d�clar�e(s) 
@@ -47,15 +56,13 @@ public class Declaration {
 	 */
 	public void declVar(String nom) {
 		IdVar variable;
-		int offset = Yaka.tabIdent.offset;
+		Yaka.tabIdent.offset -= 2;
 		if(isInteger) {
-			variable = new IdVar(Type.ENTIER, offset);
-			
+			variable = new IdVar(Type.ENTIER, Yaka.tabIdent.offset);			
 		}
 		else {
-			variable = new IdVar(Type.BOOLEEN, offset);
+			variable = new IdVar(Type.BOOLEEN, Yaka.tabIdent.offset);
 		}
 		Yaka.tabIdent.rangeIdent(nom, variable);
-		Yaka.tabIdent.offset += 2;
 	}
 }
