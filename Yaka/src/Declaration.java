@@ -8,7 +8,7 @@ public class Declaration {
 	private Boolean isInteger;	
 
 	/**
-	 * M�thode pour sauvegarder le nom d'une constante
+	 * Methode pour sauvegarder le nom d'une constante
 	 * @param nom le nom de la constante
 	 */
 	public void setNom(String nom) {
@@ -16,7 +16,7 @@ public class Declaration {
 	}
 	
 	/**
-	 * M�thode pour enregistrer une constante avec valeur enti�re dans tabIdent
+	 * Methode pour enregistrer une constante avec valeur entiere dans tabIdent
 	 * @param val valeur de la constante
 	 */
 	public void declConst(int val) {
@@ -25,16 +25,16 @@ public class Declaration {
 	}
 
 	/**
-	 * M�thode pour enregistrer une constante avec valeur bool�enne dans tabIdent
+	 * Methode pour enregistrer une constante avec valeur booleenne dans tabIdent
 	 * @param val valeur de la constante
 	 */
 	public void declConst(boolean val) {
-		IdConst constante = new IdConst(Type.ENTIER, val);
+		IdConst constante = new IdConst(Type.BOOLEEN, val);
 		Yaka.tabIdent.rangeIdent(this.nom, constante);
 	}
 	
 	/**
-	 * M�thode pour affecter une constante à une autre
+	 * Methode pour affecter une constante a une autre
 	 * @param nom nom de la constante source
 	 */
 	public void declConst(String nomSource) {
@@ -43,16 +43,16 @@ public class Declaration {
 	}
 
 	/**
-	 * M�thode pour enregistrer le type de(s) la(les) variable(s) d�clar�e(s) 
-	 * @param b vrai si type entier, faux si type bool�en
+	 * Methode pour enregistrer le type de(s) la(les) variable(s) declaree(s) 
+	 * @param b vrai si type entier, faux si type booleen
 	 */
 	public void setIsInteger(boolean b) {
 		isInteger = b;
 	}
 
 	/**
-	 * M�thode pour enregistrer une variable tabIdent
-	 * @param nom nom de la variable d�clar�e
+	 * Methode pour enregistrer une variable tabIdent
+	 * @param nom nom de la variable declaree
 	 */
 	public void declVar(String nom) {
 		IdVar variable;
