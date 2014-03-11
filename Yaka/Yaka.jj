@@ -21,7 +21,7 @@ public class Yaka {
 	
 public static Declaration decl = new Declaration();
 public static TabIdent tabident = new TabIdent();
-public static Expression expression = new Expression();
+public static Expression expr = new Expression();
 
 public static YVM yvm = new YVM("resultat.txt"); //Classe YVM pour la génération */
   public static void main(String args[]) { 
@@ -133,6 +133,7 @@ TOKEN  :
 | < chaine : "\"" (~["\""])* "\"" | "'" (~["'"])* "'" >
 	{ chaineLue = image.toString();
 	 }
+| < alaligne : "ALALIGNE" >
 }
 
 
@@ -148,80 +149,108 @@ void analyse() : {}
 
 void bloc() : {}{
  (declConst())*
- (declVar())*	
+ (declVar())*
  suiteExpr() 
 }
 
 void declConst() : {}
 {
-  <CONST>  defConst() {yvm.DeclarationConstante();} /*Enregistrement constante */  ( "," defConst() {yvm.DeclarationConstante();} /*Enregistrement constante */ )* ";" 
+  <CONST>  defConst()  ( "," defConst() )* ";" 
 }
 
 void defConst() : {}
 {
-  <ident>  	  	
+  <ident> {decl.setNom(YakaTokenManager.identLu)} 	  	
    "=" valConst() 
 }
 
 void valConst() : {}
 {
-  <entier> 		
- | <ident>		
- | <VRAI> 		
- | <FAUX> 		
+  <entier> {decl.declConst(YakaTokenManager.entierLu);}		
+ | <ident> {decl.declConst(YakaTokenManager.identLu);}			
+ | <VRAI>  {decl.declConst(true);}		
+ | <FAUX>  {decl.declConst(false);}		
 }
 
 
 void declVar() : {} 
 {
   <VAR>  type() 	
-  <ident> {yvm.CompteurVariable;}/*Nombre de variable à enregistrer dans la pile*/			
+  <ident> {decl.declVar(YakaTokenManager.identLu);}		
   ("," 
-      <ident> {yvm.CompteurVariable;}
-  )* ";" {yvm.DeclarationVariable;} /*ouvrePrinc*/
+      <ident> {decl.declVar(YakaTokenManager.identLu);}
+  )* ";" 
 	
 }
 
 void type() :{}
 {
-   <ENTIER> 			
- | <BOOLEEN>	
+   <ENTIER> {decl.setIsInteger(true);}			
+ | <BOOLEEN> {decl.setIsInteger(false);}	
 }
+
 /*
  * Syntaxe des instructions.
  */
 void suiteExpr() : {}
-{ (expression() (";" (expression())? )*)? }
+{ 
+  (expression() (";" (expression())? )*)? 
+}
 
+/*
+ * Syntaxe des affectation, entrées, sorties.
+ */
+/*
+void suiteInstr() :: {}
+{
+  instruction() ((instruction())?)*
+}
 
+void instruction() : {}
+{
+  affectation() 
+  | lecture() 
+  | ecriture()
+}
+
+void affectation() :: {}
+{
+  <ident> '=' expression() 
+}
+
+void lecture() :: {}
+{
+  lire(<ident>)
+}
+
+void ecriture() :: {}
+{
+  ecrire(expression())
+  | ecrire(<chaine>)
+  | <alaligne>
+}
+
+*/
 
 /*
  * Expression .
  */
 void expression() : {}
 {
-  simpleExpr() 
-  (opRel() 
-  simpleExpr() 
-  )?
+  simpleExpr() (opRel() simpleExpr() {expr.generationCalcul()} )? /*Génération des iconst, idiv, iadd etc...*/
+  
 }
-
-
 
 void simpleExpr() : {}
 {
-   terme() 
-   (opAdd() 
-   terme()	
-   )*
+   terme() (opAdd() terme() {expr.generationCalcul()} )* 
 } 
+
 void terme() : {}
 {
-  facteur() 
-  (opMul() 
-  facteur()	
-  )*
+  facteur() (opMul() facteur() {expr.generationCalcul()} )*
 }
+
 void facteur() : {}
 {   primaire() 
   |  opNeg() primaire() 
@@ -235,40 +264,40 @@ void primaire (): {}
 }
 
 void valeur () : {}
-{ <entier> 		
- | <ident> 		
- | <VRAI> 		
- | <FAUX> 		
+{ <entier> {expr.addEntier(YakaTokenManager.entierLu);}		
+ | <ident> {expr.addIdent(YakaTokenManager.identLu);}		
+ | <VRAI>  {expr.addEtat("VRAI");}		
+ | <FAUX>  {expr.addEtat("FAUX");}		
  
 }
 
 void opRel() : {}
 {
-   "=" 		
- | "<>" 	
- | "<" 		
- | "<=" 	
- | ">" 		
- | ">=" 	
+   "=" 	{expr.addOperateur("=");}	
+ | "<>" {expr.addOperateur("<>");}	
+ | "<" 	{expr.addOperateur("<");}	
+ | "<=" {expr.addOperateur("<=");}	
+ | ">" 	{expr.addOperateur(">");}	
+ | ">=" {expr.addOperateur(">=");}	
 } 
 
 void opAdd() : {}
 {
-    "+"		
-  |  "-"  
-  | <OU> 	
+    "+" {expr.addOperateur("+");}		
+  |  "-" {expr.addOperateur("-");}  
+  | <OU> {expr.addOperateur("OU");}	
 }
 
 void opMul() : {}
 {
-  "*"		
-  | "/"		
-  | <ET>	
+  "*"    {expr.addOperateur("*");}		
+  | "/"	 {expr.addOperateur("/");}	
+  | <ET> {expr.addOperateur("ET");}	
 } 
 
 void opNeg() : {}
-{ "-" 		
- | <NON>	
+{ "-"    {expr.entierNeg();}		
+ | <NON> {expr.identNeg();}	
 }
 
 
