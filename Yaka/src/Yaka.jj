@@ -253,7 +253,7 @@ void terme() : {}
 
 void facteur() : {}
 {   primaire() 
-  |  opNeg() primaire() 
+  |  opNeg() primaire() {Expr.neg();}
 }
 
 void primaire (): {}
@@ -296,8 +296,8 @@ void opMul() : {}
 } 
 
 void opNeg() : {}
-{ "-"    {expr.entierNeg();}		
- | <NON> {expr.identNeg();}	
+{ "-" 		
+ | <NON>
 }
 
 
