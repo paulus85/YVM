@@ -29,7 +29,6 @@ public class Expression {
 		}
 		Ident ident = Yaka.tabIdent.chercheIdent(s);
 		pile_type.add(ident.getType());
-		System.out.println(ident.getClass());
 		if(ident instanceof IdVar)
 			Yaka.yvm.iload(((IdVar) ident).getOffset());
 		else
