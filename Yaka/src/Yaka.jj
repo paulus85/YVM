@@ -149,6 +149,7 @@ void analyse() : {}
 void bloc() : {}{
  (declConst())*
  (declVar())*
+ {yvm.ouvrePrinc(abs(tabIdent.offset));}
  suiteExpr() 
 }
 

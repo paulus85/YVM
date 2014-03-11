@@ -73,6 +73,7 @@ public static YVM yvm = new YVM(); //Classe YVM pour la generation */
       }
       declVar();
     }
+  yvm.ouvrePrinc(abs(tabIdent.offset));
     suiteExpr();
   }
 
