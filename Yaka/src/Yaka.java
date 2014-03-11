@@ -266,9 +266,10 @@ public static YVM yvm = new YVM(); //Classe YVM pour la generation */
 
   static final public void affectation() throws ParseException {
     jj_consume_token(ident);
+           expr.stockIdent(YakaTokenManager.identLu);
     jj_consume_token(42);
     expression();
-                            expr.affect();
+                                                                         expr.affect();
   }
 
   static final public void lecture() throws ParseException {

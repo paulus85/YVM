@@ -215,7 +215,7 @@ void instruction() : {}
 
 void affectation() : {}
 {
-  <ident> "=" expression() {expr.affect();}
+  <ident> {expr.stockIdent(YakaTokenManager.identLu);} "=" expression() {expr.affect();}
 }
 
 void lecture() : {}
