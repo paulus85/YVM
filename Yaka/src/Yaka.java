@@ -2,7 +2,7 @@
 public class Yaka implements YakaConstants {
 
 public static Declaration decl = new Declaration();
-public static TabIdent tabident = new TabIdent();
+public static TabIdent tabIdent = new TabIdent();
 public static Expression expr = new Expression();
 
 public static YVM yvm = new YVM(); //Classe YVM pour la generation */
