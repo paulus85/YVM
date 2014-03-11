@@ -197,7 +197,7 @@ void suiteExpr() : {}
 }
 
 /*
- * Syntaxe des affectation, entrées, sorties.
+ * Syntaxe des affectation, entrees, sorties.
  */
 /*
 void suiteInstr() :: {}
@@ -236,7 +236,7 @@ void ecriture() :: {}
  */
 void expression() : {}
 {
-  simpleExpr() (opRel() simpleExpr() {expr.generationCalcul();} )? /*Génération des iconst, idiv, iadd etc...*/
+  simpleExpr() (opRel() simpleExpr() {expr.generationCalcul();} )? /*Generation des iconst, idiv, iadd etc...*/
   
 }
 

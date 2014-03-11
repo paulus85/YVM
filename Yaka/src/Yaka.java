@@ -213,7 +213,7 @@ public static YVM yvm = new YVM(); //Classe YVM pour la génération */
   }
 
 /*
- * Syntaxe des affectation, entrées, sorties.
+ * Syntaxe des affectation, entrees, sorties.
  */
 /*
 void suiteInstr() :: {}
