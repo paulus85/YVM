@@ -1,6 +1,6 @@
 import java.io.*;
 
-//quelques primitives d'écriture à l'ecran  ou dans un fichier
+//quelques primitives d'ecriture a l'ecran  ou dans un fichier
 
 public class Ecriture {   
     private static void erreur(IOException e) {
@@ -10,7 +10,7 @@ public class Ecriture {
     }
 
     public static OutputStream ouvrir(String nomFich) {
-	//délivre un pointeur sur le fichier de nom nomFich (null si erreur)
+	//delivre un pointeur sur le fichier de nom nomFich (null si erreur)
 	OutputStream f;
 	try {f=new DataOutputStream(new FileOutputStream(nomFich));
 	}
@@ -26,7 +26,7 @@ public class Ecriture {
 
      
 
-    //écriture d'un caractère                   
+    //ecriture d'un caractere                   
 
     public static void ecrireChar(OutputStream f,char c) {
 	try {f.write(c);}
@@ -37,7 +37,7 @@ public class Ecriture {
 
 
 
-    //écriture d'une chaîne, avec éventuel passage à la ligne 
+    //ecriture d'une chaine, avec eventuel passage a la ligne 
      
     public static void ecrireString(OutputStream f,String s) {
 	try {for (int i=0;i<s.length();i++) f.write(s.charAt(i));}
@@ -58,7 +58,7 @@ public class Ecriture {
 
 
 
-    //écriture d'un entier avec formatage éventuel 
+    //ecriture d'un entier avec formatage eventuel 
     
     public static void ecrireInt(OutputStream f,int x) {
 	ecrireString(f,Integer.toString(x));
@@ -79,7 +79,7 @@ public class Ecriture {
 
 
 
-    //écriture d'un double avec formatage éventuel                   
+    //ecriture d'un double avec formatage eventuel                   
   
     public static void ecrireDouble(OutputStream f,double d) {
 	ecrireString(f,Double.toString(d));
