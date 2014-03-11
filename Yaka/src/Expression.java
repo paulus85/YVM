@@ -11,12 +11,27 @@ import java.util.EmptyStackException;
 public class Expression {
 	private Stack<Type> pile_type;
 	private Stack<String> pile_op;
+	private Ident variableAffectation;
 	
 	public Expression() {
 		pile_type = new Stack<Type>();
 		pile_op = new Stack<String>();
 	}
 	
+	public void stockIdent(String s){
+		if(!Yaka.tabIdent.existeIdent(s)){
+			/// Identifiant n'a pas ete ajoute a la table
+		}
+		variableAffectation = Yaka.tabIdent.chercheIdent(s);
+	}
+	
+	public void affect(){
+		if(variableAffectation == NULL){
+			/// error
+		}else{
+			istore(((IdVar)Ident).getOffset());
+		}
+	}
 	
 	public void addEntier(int entier){
 		pile_type.add(Type.ENTIER);
@@ -100,45 +115,74 @@ public class Expression {
 		switch(op){
 		case "=" : 
 			Yaka.yvm.iegal();
+			pile_type.add(Type.BOOLEEN);
 			break;
 		case "<" : 
 			Yaka.yvm.iinf();
+			pile_type.add(Type.BOOLEEN);
 			break;
 		case ">" : 
 			Yaka.yvm.isup();
+			pile_type.add(Type.BOOLEEN);
 			break;
 		case "<=" : 
 			Yaka.yvm.iinfegal();
+			pile_type.add(Type.BOOLEEN);
 			break;
 		case ">=" : 
 			Yaka.yvm.isupegal();
+			pile_type.add(Type.BOOLEEN);
 			break;
 		case "<>" : 
 			Yaka.yvm.idiff();
+			pile_type.add(Type.BOOLEEN);
 			break;
 		case "+" : 
 			Yaka.yvm.iadd();
+			if(type2 != Type.ENTIER){
+				///error
+			}
+			pile_type.add(type2);
 			break;
 		case "-" : 
 			Yaka.yvm.isub();
+			if(type2 != Type.ENTIER){
+				///error
+			}
+			pile_type.add(type2);
 			break;
 		case "OU" : 
 			Yaka.yvm.ior();
+			if(type2 != Type.BOOLEEN){
+				///error
+			}
+			pile_type.add(type2);
 			break;
 		case "ET" : 
 			Yaka.yvm.iand();
+			if(type2 != Type.BOOLEEN){
+				///error
+			}
+			pile_type.add(type2);
 			break;
 		case "*" : 
 			Yaka.yvm.imul();
+			if(type2 != Type.ENTIER){
+				///error
+			}
+			pile_type.add(type2);
 			break;
 		case "/" : 
 			Yaka.yvm.idiv();
+			if(type2 != Type.ENTIER){
+				///error
+			}
+			pile_type.add(type2);
 			break;
 		default:
 			/// operateur non valide (n'arrive jamais)
 			;
 		}
 		
-		pile_type.add(type2);
 	}
 }
