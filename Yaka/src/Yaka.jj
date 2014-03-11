@@ -150,7 +150,7 @@ void bloc() : {}{
  (declConst())*
  (declVar())*
  {yvm.ouvrePrinc(Math.abs(tabIdent.offset));}
- suiteExpr() 
+ suiteInstr() 
 }
 
 void declConst() : {}
@@ -251,7 +251,7 @@ void terme() : {}
 
 void facteur() : {}
 {   primaire() 
-  |  opNeg() primaire() {Expr.neg();}
+  |  opNeg() primaire() {expr.neg();}
 }
 
 void primaire (): {}

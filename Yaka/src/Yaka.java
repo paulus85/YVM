@@ -74,7 +74,7 @@ public static YVM yvm = new YVM(); //Classe YVM pour la generation */
       declVar();
     }
   yvm.ouvrePrinc(Math.abs(tabIdent.offset));
-    suiteExpr();
+    suiteInstr();
   }
 
   static final public void declConst() throws ParseException {
@@ -389,7 +389,7 @@ public static YVM yvm = new YVM(); //Classe YVM pour la generation */
     case 51:
       opNeg();
       primaire();
-                         Expr.neg();
+                         expr.neg();
       break;
     default:
       jj_la1[17] = jj_gen;
