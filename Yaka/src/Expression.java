@@ -12,9 +12,9 @@ public class Expression {
 	private Stack<Type> pile_type;
 	private Stack<String> pile_op;
 	
-	Expression(){
-		Stack<Type> pile_type = new Stack<Type>();
-		Stack<String> pile_op = new Stack<String>();
+	public Expression() {
+		pile_type = new Stack<Type>();
+		pile_op = new Stack<String>();
 	}
 	
 	
@@ -27,9 +27,16 @@ public class Expression {
 		if(!Yaka.tabIdent.existeIdent(s)){
 			/// Identifiant n'a pas ete ajoute a la table
 		}
-		pile_type.add(Yaka.tabIdent.chercheIdent(s).getType());
-		Yaka.tabIdent.chercheIdent(s);
-		Yaka.yvm.iload(((IdVar) Yaka.tabIdent.chercheIdent(s)).getOffset());
+		Ident ident = Yaka.tabIdent.chercheIdent(s);
+		pile_type.add(ident.getType());
+		System.out.println(ident.getClass());
+		if(ident instanceof IdVar)
+			Yaka.yvm.iload(((IdVar) ident).getOffset());
+		else
+			if(ident.getType() == Type.ENTIER)
+				Yaka.yvm.iconst(((IdConst) ident).getValInt());
+			else
+				Yaka.yvm.iconst(((IdConst) ident).getValBool());
 	}
 	
 	public void addEtat(String s){
