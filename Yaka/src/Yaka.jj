@@ -200,10 +200,10 @@ void suiteExpr() : {}
 /*
  * Syntaxe des affectation, entrees, sorties.
  */
-/*
-void suiteInstr() :: {}
+
+void suiteInstr() : {}
 {
-  instruction() ((instruction())?)*
+  instruction() ( ";" (instruction())? )*
 }
 
 void instruction() : {}
@@ -213,24 +213,22 @@ void instruction() : {}
   | ecriture()
 }
 
-void affectation() :: {}
+void affectation() : {}
 {
-  <ident> '=' expression() 
+  <ident> {expr.stockIdent(YakaTokenManager.identLu);} "=" expression() {expr.affect();}
 }
 
-void lecture() :: {}
+void lecture() : {}
 {
-  lire(<ident>)
+  <LIRE> "(" <ident> ")" {expr.lire();}
 }
 
-void ecriture() :: {}
+void ecriture() : {}
 {
-  ecrire(expression())
-  | ecrire(<chaine>)
-  | <ALALIGNE>
+  (<ECRIRE> "(" expression() ")" | "(" <chaine> ")" ) {expr.ecrire();}  
+  | <ALALIGNE> {expr.retourLigne();}
 }
 
-*/
 
 /*
  * Expression .
