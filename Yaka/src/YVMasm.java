@@ -71,6 +71,61 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
+	void ior() {
+		Ecriture.ecrireStringln(out,"push bx");
+		Ecriture.ecrireStringln(out,"push ax");
+		Ecriture.ecrireStringln(out,"or ax,bx");
+		Ecriture.ecrireStringln(out,"push ax");
+		Ecriture.ecrireStringln(out,"");
+		
+	}
+	
+	void iand() {
+		Ecriture.ecrireStringln(out,"push bx");
+		Ecriture.ecrireStringln(out,"push ax");
+		Ecriture.ecrireStringln(out,"and ax,bx");
+		Ecriture.ecrireStringln(out,"push ax");
+		Ecriture.ecrireStringln(out,"");
+	}
+	
+	void ineg() {
+		Ecriture.ecrireStringln(out,"pop ax");
+		Ecriture.ecrireStringln(out,"neg ax");
+		Ecriture.ecrireStringln(out,"push ax");
+		Ecriture.ecrireStringln(out,"");
+	}
+	
+	void inot() {
+		Ecriture.ecrireStringln(out,"pop ax");
+		Ecriture.ecrireStringln(out,"not ax");
+		Ecriture.ecrireStringln(out,"push ax");
+		Ecriture.ecrireStringln(out,"");
+	}
+
+	void iinf() {
+		
+	}
+	
+	void isup() {
+		
+	}
+	
+	void iinfegal() {
+		
+	}
+	
+	void isupegal() {
+		
+	}
+	
+	void iegal() {
+		
+	}
+	
+	void idiff() {
+		
+	}
+	
 	void iconst(int val) {
 		Ecriture.ecrireStringln(out,"push "+val);
 		Ecriture.ecrireStringln(out,"");
@@ -92,45 +147,4 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"push word ptr[bp"+offset+"]");
 		Ecriture.ecrireStringln(out,"");
 	}
-	
-	void ior() {
-		Ecriture.ecrireStringln(out,"push bx");
-		Ecriture.ecrireStringln(out,"push ax");
-		Ecriture.ecrireStringln(out,"or ax,bx");
-		Ecriture.ecrireStringln(out,"push ax");
-		Ecriture.ecrireStringln(out,"");
-		
-	}
-	
-	void iand() {
-		Ecriture.ecrireStringln(out,"push bx");
-		Ecriture.ecrireStringln(out,"push ax");
-		Ecriture.ecrireStringln(out,"and ax,bx");
-		Ecriture.ecrireStringln(out,"push ax");
-		Ecriture.ecrireStringln(out,"");
-	}
-	
-	void iinf() {
-		
-	}
-	
-	void isup() {
-		
-	}
-	
-	void ineg() {
-		Ecriture.ecrireStringln(out,"pop ax");
-		Ecriture.ecrireStringln(out,"neg ax");
-		Ecriture.ecrireStringln(out,"push ax");
-	}
-	
-	void inot() {
-		Ecriture.ecrireStringln(out,"pop ax");
-		Ecriture.ecrireStringln(out,"not ax");
-		Ecriture.ecrireStringln(out,"push ax");
-	}
-	
-	
-	
-
 }
