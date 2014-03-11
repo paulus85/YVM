@@ -323,6 +323,7 @@ void ecriture() :: {}
     case 51:
       opNeg();
       primaire();
+                         Expr.neg();
       break;
     default:
       jj_la1[12] = jj_gen;
@@ -455,11 +456,9 @@ void ecriture() :: {}
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 51:
       jj_consume_token(51);
-          expr.entierNeg();
       break;
     case NON:
       jj_consume_token(NON);
-          expr.identNeg();
       break;
     default:
       jj_la1[18] = jj_gen;
