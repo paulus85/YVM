@@ -17,6 +17,9 @@ public class YVMasm extends YVM{
 	}
 
 	void entete() {
+		Ecriture.ecrireStringln(out,"extrn lirent:proc, ecrent:proc");
+		Ecriture.ecrireStringln(out,"extrn ecrbool:proc");
+		Ecriture.ecrireStringln(out,"extrn ecrch:proc, ligsuiv:proc");
 		Ecriture.ecrireStringln(out,".model SMALL");
 		Ecriture.ecrireStringln(out,".586");
 		Ecriture.ecrireStringln(out,"\n.CODE");
@@ -103,27 +106,68 @@ public class YVMasm extends YVM{
 	}
 
 	void iinf() {
-		
+		Ecriture.ecrireStringln(out,"pop bx");
+		Ecriture.ecrireStringln(out,"pop ax");
+		Ecriture.ecrireStringln(out,"cmp ax,bx");
+		Ecriture.ecrireStringln(out,"jge $+6");
+		Ecriture.ecrireStringln(out,"push -1");
+		Ecriture.ecrireStringln(out,"jmp $+4");
+		Ecriture.ecrireStringln(out,"push 0");
+		Ecriture.ecrireStringln(out,"");
 	}
 	
 	void isup() {
-		
+		Ecriture.ecrireStringln(out,"pop bx");
+		Ecriture.ecrireStringln(out,"pop ax");
+		Ecriture.ecrireStringln(out,"cmp ax,bx");
+		Ecriture.ecrireStringln(out,"jle $+6");
+		Ecriture.ecrireStringln(out,"push -1");
+		Ecriture.ecrireStringln(out,"jmp $+4");
+		Ecriture.ecrireStringln(out,"push 0");
+		Ecriture.ecrireStringln(out,"");
 	}
 	
 	void iinfegal() {
-		
+		Ecriture.ecrireStringln(out,"pop bx");
+		Ecriture.ecrireStringln(out,"pop ax");
+		Ecriture.ecrireStringln(out,"cmp ax,bx");
+		Ecriture.ecrireStringln(out,"jg $+6");
+		Ecriture.ecrireStringln(out,"push -1");
+		Ecriture.ecrireStringln(out,"jmp $+4");
+		Ecriture.ecrireStringln(out,"push 0");
+		Ecriture.ecrireStringln(out,"");
 	}
 	
 	void isupegal() {
-		
+		Ecriture.ecrireStringln(out,"pop bx");
+		Ecriture.ecrireStringln(out,"pop ax");
+		Ecriture.ecrireStringln(out,"cmp bx,ax");
+		Ecriture.ecrireStringln(out,"jg $+6");
+		Ecriture.ecrireStringln(out,"push -1");
+		Ecriture.ecrireStringln(out,"jmp $+4");
+		Ecriture.ecrireStringln(out,"push 0");
+		Ecriture.ecrireStringln(out,"");
 	}
 	
 	void iegal() {
-		
+		Ecriture.ecrireStringln(out,"pop bx");
+		Ecriture.ecrireStringln(out,"pop ax");
+		Ecriture.ecrireStringln(out,"cmp ax,bx");
+		Ecriture.ecrireStringln(out,"jne $+6");
+		Ecriture.ecrireStringln(out,"push -1");
+		Ecriture.ecrireStringln(out,"jmp $+4");
+		Ecriture.ecrireStringln(out,"push 0");
+		Ecriture.ecrireStringln(out,"");
 	}
 	
 	void idiff() {
-		
+		Ecriture.ecrireStringln(out,"pop bx");
+		Ecriture.ecrireStringln(out,"pop ax");
+		Ecriture.ecrireStringln(out,"cmp ax,bx");
+		Ecriture.ecrireStringln(out,"je $+6");
+		Ecriture.ecrireStringln(out,"push -1");
+		Ecriture.ecrireStringln(out,"jmp $+4");
+		Ecriture.ecrireStringln(out,"push 0");
 	}
 	
 	void iconst(int val) {
@@ -147,4 +191,28 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"push word ptr[bp"+offset+"]");
 		Ecriture.ecrireStringln(out,"");
 	}
+	
+	void ecrireEnt(int i) {
+		Ecriture.ecrireStringln(out,"call ecrent");
+		Ecriture.ecrireStringln(out,"");
+	}
+	
+	void ecrireChaine(String s) {
+		
+	}
+	
+	void ecrireBool(boolean bool) {
+		Ecriture.ecrireStringln(out,"call ecrch");
+		Ecriture.ecrireStringln(out,"");
+	}
+	
+	void lireEnt(int offset) {
+		
+	}
+	
+	void aLaLigne () {
+		Ecriture.ecrireStringln(out,"call ligsuiv");
+		Ecriture.ecrireStringln(out,"");
+	}
+	
 }
