@@ -23,8 +23,8 @@ public class IdConst extends Ident{
 	/**
 	 * @return the value
 	 */
-	public int getValue() {
-		return value;
+	public int getValInt() {
+		return valInt;
 	}
 
 	
