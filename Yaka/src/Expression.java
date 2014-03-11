@@ -24,12 +24,12 @@ public class Expression {
 	}
 	
 	public void addIdent(String s){
-		if(!Yaka.tabident.existeIdent(s)){
+		if(!Yaka.tabIdent.existeIdent(s)){
 			/// Identifiant n'a pas ete ajoute a la table
 		}
-		pile_type.add(Yaka.tabident.chercheIdent(s).getType());
-		Yaka.tabident.chercheIdent(s).
-		Yaka.yvm.iload(Yaka.tabident.chercheIdent(s).getOffset());
+		pile_type.add(Yaka.tabIdent.chercheIdent(s).getType());
+		Yaka.tabIdent.chercheIdent(s);
+		Yaka.yvm.iload(((IdVar) Yaka.tabIdent.chercheIdent(s)).getOffset());
 	}
 	
 	public void addEtat(String s){
@@ -72,7 +72,7 @@ public class Expression {
 	
 	public void generationCalcul(){
 		Type type2 = Type.ERREUR;
-		String op;
+		String op = null;
 		
 		try{
 			op = pile_op.pop();
