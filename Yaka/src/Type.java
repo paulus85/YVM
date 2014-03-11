@@ -5,5 +5,6 @@
 */
 public enum Type {
 	ENTIER,
-	BOOLEEN;
+	BOOLEEN,
+	ERREUR;
 }
