@@ -188,15 +188,29 @@ public class Expression {
 	public void ecrireChaine(String chaine){
 		Yaka.yvm.ecrireChaine(chaine);
 	}
+	
 	public void ecrire(){
-		/// faire les calculs....
-		// TODO
-		/// et pop le resultat
-		// et appeler soit ecrireBool soit ecrireEnt en fonction du type
+		Type type = Type.ERREUR;
+		try{
+			type = pile_type.pop();
+		} catch(EmptyStackException e){
+			/// Pile des type vide : expression manquante
+		}
+		switch(type){
+			case ENTIER : 
+				Yaka.yvm.ecrireEnt();
+				break;
+			case BOOLEEN :
+				Yaka.yvm.ecrireBool();
+				break;
+			default :; ///erreur
+		}
 	}
+	
 	public void retourLigne(){
 		Yaka.yvm.aLaLigne();
 	}
+	
 	public void lire(String s){
 		if(!Yaka.tabIdent.existeIdent(s)){
 			/// Identifiant n'a pas ete ajoute a la table

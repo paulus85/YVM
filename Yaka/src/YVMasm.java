@@ -192,7 +192,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void ecrireEnt(int i) {
+	void ecrireEnt() {
 		Ecriture.ecrireStringln(out,"call ecrent");
 		Ecriture.ecrireStringln(out,"");
 	}
@@ -206,7 +206,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void lireEnt(int offset) {
+	void lireEnt() {
 		
 	}
 	

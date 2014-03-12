@@ -98,4 +98,24 @@ public class YVM {
 	void iload(int offset) {
 		Ecriture.ecrireStringln(out,"iload "+offset);
 	}
+	
+	void ecrireEnt() {
+		Ecriture.ecrireStringln(out,"ecrireEnt");
+	}
+	
+	void ecrireChaine(String s) {
+		Ecriture.ecrireStringln(out,"ecrireChaine "+s);
+	}
+	
+	void ecrireBool() {
+		Ecriture.ecrireStringln(out,"ecrireBool");
+	}
+	
+	void lireEnt(int offset) {
+		Ecriture.ecrireStringln(out,"lireEnt "+offset);
+	}
+	
+	void aLaLigne () {
+		Ecriture.ecrireStringln(out,"aLaLigne");
+	}
 }
