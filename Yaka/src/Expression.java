@@ -184,4 +184,27 @@ public class Expression {
 		}
 		
 	}
+	
+	public void ecrireChaine(String chaine){
+		Yaka.yvm.ecrireChaine(chaine);
+	}
+	public void ecrire(){
+		/// faire les calculs....
+		// TODO
+		/// et pop le resultat
+		// et appeler soit ecrireBool soit ecrireEnt en fonction du type
+	}
+	public void retourLigne(){
+		Yaka.yvm.aLaLigne();
+	}
+	public void lire(String s){
+		if(!Yaka.tabIdent.existeIdent(s)){
+			/// Identifiant n'a pas ete ajoute a la table
+		}
+		Ident ident = Yaka.tabIdent.chercheIdent(s);
+		if(!(ident instanceof IdVar))
+			;/// Erreur : essayer de modifier constante
+		else
+			Yaka.yvm.lireEnt(((IdVar) ident).getOffset());
+	}
 }
