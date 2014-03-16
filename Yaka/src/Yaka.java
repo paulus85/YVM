@@ -277,7 +277,7 @@ public static YVM yvm = new YVM(); //Classe YVM pour la generation */
     jj_consume_token(43);
     jj_consume_token(ident);
     jj_consume_token(44);
-                          expr.lire();
+                          expr.lire(YakaTokenManager.identLu);
   }
 
   static final public void ecriture() throws ParseException {
@@ -289,11 +289,13 @@ public static YVM yvm = new YVM(); //Classe YVM pour la generation */
         jj_consume_token(ECRIRE);
         jj_consume_token(43);
         expression();
+                              expr.ecrire();
         jj_consume_token(44);
         break;
       case 43:
         jj_consume_token(43);
         jj_consume_token(chaine);
+                                                                 expr.ecrireChaine(YakaTokenManager.chaineLue);
         jj_consume_token(44);
         break;
       default:
@@ -301,7 +303,6 @@ public static YVM yvm = new YVM(); //Classe YVM pour la generation */
         jj_consume_token(-1);
         throw new ParseException();
       }
-                                                       expr.ecrire();
       break;
     case ALALIGNE:
       jj_consume_token(ALALIGNE);
