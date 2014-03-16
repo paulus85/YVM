@@ -150,7 +150,7 @@ void bloc() : {}{
  (declConst())*
  (declVar())*
  {yvm.ouvrePrinc(Math.abs(tabIdent.offset));}
- suiteExpr() 
+ suiteInstr() 
 }
 
 void declConst() : {}
@@ -220,12 +220,12 @@ void affectation() : {}
 
 void lecture() : {}
 {
-  <LIRE> "(" <ident> ")" {expr.lire();}
+  <LIRE> "(" <ident> ")" {expr.lire(YakaTokenManager.identLu);}
 }
 
 void ecriture() : {}
 {
-  (<ECRIRE> "(" expression() ")" | "(" <chaine> ")" ) {expr.ecrire();}  
+  (<ECRIRE> "(" expression() {expr.ecrire();}")" | "(" <chaine> {expr.ecrireChaine(YakaTokenManager.chaineLue);} ")" )  
   | <ALALIGNE> {expr.retourLigne();}
 }
 

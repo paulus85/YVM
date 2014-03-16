@@ -26,6 +26,13 @@ public class IdConst extends Ident{
 	public int getValInt() {
 		return valInt;
 	}
+	
+	/**
+	 * @return the value
+	 */
+	public boolean getValBool() {
+		return valBool;
+	}
 
 	
 	/**

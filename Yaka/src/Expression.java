@@ -26,10 +26,10 @@ public class Expression {
 	}
 	
 	public void affect(){
-		if(variableAffectation == NULL){
+		if(variableAffectation == null){
 			/// error
 		}else{
-			istore(((IdVar)Ident).getOffset());
+			Yaka.yvm.istore(((IdVar) variableAffectation).getOffset());
 		}
 	}
 	
@@ -44,7 +44,6 @@ public class Expression {
 		}
 		Ident ident = Yaka.tabIdent.chercheIdent(s);
 		pile_type.add(ident.getType());
-		System.out.println(ident.getClass());
 		if(ident instanceof IdVar)
 			Yaka.yvm.iload(((IdVar) ident).getOffset());
 		else
@@ -184,5 +183,42 @@ public class Expression {
 			;
 		}
 		
+	}
+	
+	public void ecrireChaine(String chaine){
+		Yaka.yvm.ecrireChaine(chaine);
+	}
+	
+	public void ecrire(){
+		Type type = Type.ERREUR;
+		try{
+			type = pile_type.pop();
+		} catch(EmptyStackException e){
+			/// Pile des type vide : expression manquante
+		}
+		switch(type){
+			case ENTIER : 
+				Yaka.yvm.ecrireEnt();
+				break;
+			case BOOLEEN :
+				Yaka.yvm.ecrireBool();
+				break;
+			default :; ///erreur
+		}
+	}
+	
+	public void retourLigne(){
+		Yaka.yvm.aLaLigne();
+	}
+	
+	public void lire(String s){
+		if(!Yaka.tabIdent.existeIdent(s)){
+			/// Identifiant n'a pas ete ajoute a la table
+		}
+		Ident ident = Yaka.tabIdent.chercheIdent(s);
+		if(!(ident instanceof IdVar))
+			;/// Erreur : essayer de modifier constante
+		else
+			Yaka.yvm.lireEnt(((IdVar) ident).getOffset());
 	}
 }
