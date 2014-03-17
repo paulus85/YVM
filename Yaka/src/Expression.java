@@ -106,6 +106,7 @@ public class Expression {
 			type2 = pile_type.pop();
 			if(type1 != type2){
 				/// Type different : calcul incompatible 
+				System.out.println("gvfsdgbdfb");
 			}
 		} catch(EmptyStackException e){
 			/// Pile des types vide

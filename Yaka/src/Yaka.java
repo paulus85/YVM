@@ -234,7 +234,6 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       case LIRE:
       case ALALIGNE:
       case ident:
-      case 43:
         instruction();
         break;
       default:
@@ -254,7 +253,6 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       break;
     case ECRIRE:
     case ALALIGNE:
-    case 43:
       ecriture();
       break;
     default:
@@ -283,26 +281,29 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
   static final public void ecriture() throws ParseException {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case ECRIRE:
-    case 43:
+      jj_consume_token(ECRIRE);
+      jj_consume_token(43);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case ECRIRE:
-        jj_consume_token(ECRIRE);
-        jj_consume_token(43);
-        expression();
-                              expr.ecrire();
-        jj_consume_token(44);
-        break;
+      case VRAI:
+      case FAUX:
+      case NON:
+      case entier:
+      case ident:
       case 43:
-        jj_consume_token(43);
+      case 51:
+        expression();
+                                expr.ecrire();
+        break;
+      case chaine:
         jj_consume_token(chaine);
-                                                                 expr.ecrireChaine(YakaTokenManager.chaineLue);
-        jj_consume_token(44);
+                                                            expr.ecrireChaine(YakaTokenManager.chaineLue);
         break;
       default:
         jj_la1[12] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
+      jj_consume_token(44);
       break;
     case ALALIGNE:
       jj_consume_token(ALALIGNE);
@@ -552,10 +553,10 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x80000,0x200,0x0,0x120000,0x0,0x8100,0x0,0x1120000,0x1120000,0x0,0x0,0x0,0x0,0x0,0x0,0x400000,0x800000,0x1120000,0x120000,0x120000,0x0,0x400000,0x800000,0x1000000,};
+      jj_la1_0 = new int[] {0x80000,0x200,0x0,0x120000,0x0,0x8100,0x0,0x1120000,0x1120000,0x0,0x0,0x0,0x1120000,0x0,0x0,0x400000,0x800000,0x1120000,0x120000,0x120000,0x0,0x400000,0x800000,0x1000000,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x100,0x50,0x100,0x0,0x200,0x80850,0x80850,0x200,0x847,0x847,0x801,0x805,0x3e400,0xc0000,0x300000,0x80850,0x850,0x50,0x3e400,0xc0000,0x300000,0x80000,};
+      jj_la1_1 = new int[] {0x0,0x0,0x100,0x50,0x100,0x0,0x200,0x80850,0x80850,0x200,0x47,0x47,0x808d0,0x5,0x3e400,0xc0000,0x300000,0x80850,0x850,0x50,0x3e400,0xc0000,0x300000,0x80000,};
    }
 
   /** Constructor with InputStream. */

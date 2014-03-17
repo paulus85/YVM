@@ -9,11 +9,13 @@ import java.io.OutputStream;
 public class YVMasm extends YVM{
 	
 	private OutputStream out;
+	private int indexVar;
 	
 	public YVMasm() {
 		super();
 		out = Ecriture.ouvrir("ASM.asm");
 		Ecriture.ecrireStringln(out,";*********CODE ASSEMBLEUR - COMPILATEUR YVM ***********");
+		indexVar=0;
 	}
 
 	void entete() {
@@ -39,7 +41,7 @@ public class YVMasm extends YVM{
 	void enqueue() {
 		super.enqueue();
 		Ecriture.ecrireStringln(out,"nop");
-		Ecriture.ecrireStringln(out,"exitcode");
+		Ecriture.ecrireStringln(out,"EXITCODE");
 		Ecriture.ecrireStringln(out,"end debut");
 		Ecriture.ecrireStringln(out,"");
 	}
@@ -177,7 +179,7 @@ public class YVMasm extends YVM{
 	}
 	
 	void iconst(int val) {
-		Ecriture.ecrireStringln(out,"push "+val);
+		Ecriture.ecrireStringln(out,"push word ptr"+val);
 		Ecriture.ecrireStringln(out,"");
 	}
 	
@@ -204,7 +206,14 @@ public class YVMasm extends YVM{
 	}
 	
 	void ecrireChaine(String s) {
-		
+		Ecriture.ecrireStringln(out,".DATA");
+		Ecriture.ecrireStringln(out,"mess"+indexVar+" DB "+s.substring(0, s.length() -1)+"$\"");
+		Ecriture.ecrireStringln(out,".CODE");
+		Ecriture.ecrireStringln(out,"lea dx,mess"+indexVar);
+		Ecriture.ecrireStringln(out,"push dx");
+		Ecriture.ecrireStringln(out,"call ecrch");
+		Ecriture.ecrireStringln(out,"");
+		indexVar++;
 	}
 	
 	void ecrireBool(boolean bool) {
@@ -212,8 +221,14 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void lireEnt() {
-		
+	/* (non-Javadoc)
+	 * @see YVM#lireEnt(int)
+	 * ATTENTION : entier est négatif !
+	 */
+	void lireEnt(int entier) {
+		Ecriture.ecrireStringln(out,"lea dx,[bp"+entier+"]");
+		Ecriture.ecrireStringln(out,"push dx");
+		Ecriture.ecrireStringln(out,"call lirent");
 	}
 	
 	void aLaLigne () {
