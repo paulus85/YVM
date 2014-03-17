@@ -12,11 +12,12 @@ public class YVMasm extends YVM{
 	
 	public YVMasm() {
 		super();
-		out=Ecriture.ouvrir("ASM.asm");
+		out = Ecriture.ouvrir("ASM.asm");
 		Ecriture.ecrireStringln(out,";*********CODE ASSEMBLEUR - COMPILATEUR YVM ***********");
 	}
 
 	void entete() {
+		super.entete();
 		Ecriture.ecrireStringln(out,"extrn lirent:proc, ecrent:proc");
 		Ecriture.ecrireStringln(out,"extrn ecrbool:proc");
 		Ecriture.ecrireStringln(out,"extrn ecrch:proc, ligsuiv:proc");
@@ -29,12 +30,14 @@ public class YVMasm extends YVM{
 	}
 	
 	void ouvrePrinc (int nbr) {
+		super.ouvrePrinc(nbr);
 		Ecriture.ecrireStringln(out,"mov bp,sp");
 		Ecriture.ecrireStringln(out,"sub sp,"+nbr);
 		Ecriture.ecrireStringln(out,"");
 	}
 	
 	void enqueue() {
+		super.enqueue();
 		Ecriture.ecrireStringln(out,"nop");
 		Ecriture.ecrireStringln(out,"exitcode");
 		Ecriture.ecrireStringln(out,"end debut");
@@ -42,6 +45,7 @@ public class YVMasm extends YVM{
 	}
 	
 	void iadd() {
+		super.iadd();
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
 		Ecriture.ecrireStringln(out,"add ax,bx");
@@ -50,6 +54,7 @@ public class YVMasm extends YVM{
 	}
 	
 	void isub() {
+		super.isub();
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
 		Ecriture.ecrireStringln(out,"sub ax,bx");
@@ -58,6 +63,7 @@ public class YVMasm extends YVM{
 	}
 	
 	void imul() {
+		super.imul();
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
 		Ecriture.ecrireStringln(out,"imul bx");

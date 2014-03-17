@@ -8,6 +8,7 @@ import java.io.OutputStream;
  */
 public class YVM {
 	private OutputStream out;
+	public YVMasm asm;
 	
 	public YVM() {
 		out = Ecriture.ouvrir("YVM.yvm");

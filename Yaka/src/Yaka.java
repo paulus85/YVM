@@ -5,7 +5,7 @@ public static Declaration decl = new Declaration();
 public static TabIdent tabIdent = new TabIdent();
 public static Expression expr = new Expression();
 
-public static YVM yvm = new YVM(); //Classe YVM pour la generation */
+public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
   public static void main(String args[]) {
     Yaka analyseur;
     java.io.InputStream input;
