@@ -28,7 +28,6 @@ public class TabIdent {
 	 */
 	public Ident chercheIdent(String clef) {
 		return table.get(clef);
-
 	}
 
 	/**

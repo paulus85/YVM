@@ -432,11 +432,11 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       break;
     case VRAI:
       jj_consume_token(VRAI);
-            expr.addEtat("VRAI");
+            expr.addEtat(true);
       break;
     case FAUX:
       jj_consume_token(FAUX);
-            expr.addEtat("FAUX");
+            expr.addEtat(false);
       break;
     default:
       jj_la1[19] = jj_gen;

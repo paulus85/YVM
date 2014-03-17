@@ -264,8 +264,8 @@ void primaire (): {}
 void valeur () : {}
 { <entier> {expr.addEntier(YakaTokenManager.entierLu);}		
  | <ident> {expr.addIdent(YakaTokenManager.identLu);}		
- | <VRAI>  {expr.addEtat("VRAI");}		
- | <FAUX>  {expr.addEtat("FAUX");}		
+ | <VRAI>  {expr.addEtat(true);}		
+ | <FAUX>  {expr.addEtat(false);}		
  
 }
 
