@@ -14,6 +14,36 @@ STARTUPCODE
 mov bp,sp
 sub sp,14
 
+;ecrireChaine "c1="
+.DATA
+mess0 DB "c1=$"
+.CODE
+lea dx,mess0
+push dx
+call ecrch
+
+;lireEnt -2
+lea dx,[bp-2]
+push dx
+call lirent
+;alaligne
+call ligsuiv
+
+;ecrireChaine "c2="
+.DATA
+mess1 DB "c2=$"
+.CODE
+lea dx,mess1
+push dx
+call ecrch
+
+;lireEnt -4
+lea dx,[bp-4]
+push dx
+call lirent
+;alaligne
+call ligsuiv
+
 ;iconst 10
 push word ptr 10
 
@@ -46,9 +76,11 @@ cwd
 idiv bx
 push ax
 
-;istore -2
-pop ax
-mov word ptr[bp-2],ax
+;ecrireEnt
+call ecrent
+
+;alaligne
+call ligsuiv
 
 ;iload -2
 push word ptr[bp-2]
@@ -80,9 +112,11 @@ pop ax
 sub ax,bx
 push ax
 
-;istore -4
-pop ax
-mov word ptr[bp-4],ax
+;ecrireEnt
+call ecrent
+
+;alaligne
+call ligsuiv
 
 ;iconst true
 push -1
@@ -96,9 +130,8 @@ pop ax
 or ax,bx
 push ax
 
-;istore -12
-pop ax
-mov word ptr[bp-12],ax
+;alaligne
+call ligsuiv
 
 ;iload -2
 push word ptr[bp-2]
@@ -124,9 +157,8 @@ push -1
 jmp $+4
 push 0
 
-;istore -14
-pop ax
-mov word ptr[bp-14],ax
+;alaligne
+call ligsuiv
 
 ;queue
 nop

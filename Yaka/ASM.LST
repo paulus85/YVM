@@ -1,0 +1,197 @@
+Turbo Assembler	 Version 4.1	    03/18/14 09:40:09	    Page 1
+ASM.asm
+
+
+
+      1					 ;*********CODE	ASSEMBLEUR - COMPILATEUR YVM ***********
+      2					 ;entete
+      3					 extrn lirent:proc, ecrent:proc
+      4					 extrn ecrbool:proc
+      5					 extrn ecrch:proc, ligsuiv:proc
+      6	    0000			 .model	SMALL
+      7					 .586
+      8
+      9	    0000			 .CODE
+     10	    0000			 debut :
+     11					 STARTUPCODE
+1    12	    0000			 @Startup:
+1    13	    0000  BA 0000s			 MOV	 DX,@data
+1    14	    0003  8E DA				 MOV	 DS,DX
+1    15	    0005  8C D3				 MOV	 BX,SS
+1    16	    0007  2B DA				 SUB	 BX,DX
+1    17	    0009  C1 E3	04			 SHL	 BX,4
+1    18	    000C  8E D2				 MOV	 SS,DX
+1    19	    000E  03 E3				 ADD	 SP,BX
+     20
+     21					 ;ouvrePrinc 14
+     22	    0010  8B EC			 mov bp,sp
+     23	    0012  83 EC	0E		 sub sp,14
+     24
+     25					 ;ecrireChaine "c1="
+     26	    0015			 .DATA
+     27	    0000  63 31	3D 24		 mess0 DB "c1=$"
+     28	    0004			 .CODE
+     29	    0015  BA 0000r		 lea dx,mess0
+     30	    0018  52			 push dx
+     31	    0019  E8 0000e		 call ecrch
+     32
+     33					 ;lireEnt -2
+     34	    001C  8D 56	FE		 lea dx,[bp-2]
+     35	    001F  52			 push dx
+     36	    0020  E8 0000e		 call lirent
+     37					 ;alaligne
+     38	    0023  E8 0000e		 call ligsuiv
+     39
+     40					 ;ecrireChaine "c2="
+     41	    0026			 .DATA
+     42	    0004  63 32	3D 24		 mess1 DB "c2=$"
+     43	    0008			 .CODE
+     44	    0026  BA 0004r		 lea dx,mess1
+     45	    0029  52			 push dx
+     46	    002A  E8 0000e		 call ecrch
+     47
+     48					 ;lireEnt -4
+     49	    002D  8D 56	FC		 lea dx,[bp-4]
+     50	    0030  52			 push dx
+     51	    0031  E8 0000e		 call lirent
+     52					 ;alaligne
+     53	    0034  E8 0000e		 call ligsuiv
+     54
+     55					 ;iconst 10
+     56	    0037  6A 0A			 push word ptr 10
+     57
+Turbo Assembler	 Version 4.1	    03/18/14 09:40:09	    Page 2
+ASM.asm
+
+
+
+     58					 ;iconst 10
+     59	    0039  6A 0A			 push word ptr 10
+     60
+     61					 ;iconst 2
+     62	    003B  6A 02			 push word ptr 2
+     63
+     64					 ;idiv
+     65	    003D  5B			 pop bx
+     66	    003E  58			 pop ax
+     67	    003F  99			 cwd
+     68	    0040  F7 FB			 idiv bx
+     69	    0042  50			 push ax
+     70
+     71					 ;iadd
+     72	    0043  5B			 pop bx
+     73	    0044  58			 pop ax
+     74	    0045  03 C3			 add ax,bx
+     75	    0047  50			 push ax
+     76
+     77					 ;iconst 5
+     78	    0048  6A 05			 push word ptr 5
+     79
+     80					 ;idiv
+     81	    004A  5B			 pop bx
+     82	    004B  58			 pop ax
+     83	    004C  99			 cwd
+     84	    004D  F7 FB			 idiv bx
+     85	    004F  50			 push ax
+     86
+     87					 ;ecrireEnt
+     88	    0050  E8 0000e		 call ecrent
+     89
+     90					 ;alaligne
+     91	    0053  E8 0000e		 call ligsuiv
+     92
+     93					 ;iload	-2
+     94	    0056  FF 76	FE		 push word ptr[bp-2]
+     95
+     96					 ;iconst 3
+     97	    0059  6A 03			 push word ptr 3
+     98
+     99					 ;iload	-2
+    100	    005B  FF 76	FE		 push word ptr[bp-2]
+    101
+    102					 ;imul
+    103	    005E  5B			 pop bx
+    104	    005F  58			 pop ax
+    105	    0060  F7 EB			 imul bx
+    106	    0062  50			 push ax
+    107
+    108					 ;iadd
+    109	    0063  5B			 pop bx
+    110	    0064  58			 pop ax
+    111	    0065  03 C3			 add ax,bx
+    112	    0067  50			 push ax
+    113
+    114					 ;iconst 10
+Turbo Assembler	 Version 4.1	    03/18/14 09:40:09	    Page 3
+ASM.asm
+
+
+
+    115	    0068  6A 0A			 push word ptr 10
+    116
+    117					 ;isub
+    118	    006A  5B			 pop bx
+    119	    006B  58			 pop ax
+    120	    006C  2B C3			 sub ax,bx
+    121	    006E  50			 push ax
+    122
+    123					 ;ecrireEnt
+    124	    006F  E8 0000e		 call ecrent
+    125
+    126					 ;alaligne
+    127	    0072  E8 0000e		 call ligsuiv
+    128
+    129					 ;iconst true
+    130	    0075  6A FF			 push -1
+    131
+    132					 ;iconst true
+    133	    0077  6A FF			 push -1
+    134
+    135					 ;ior
+    136	    0079  5B			 pop bx
+    137	    007A  58			 pop ax
+    138	    007B  0B C3			 or ax,bx
+    139	    007D  50			 push ax
+    140
+    141					 ;alaligne
+    142	    007E  E8 0000e		 call ligsuiv
+    143
+    144					 ;iload	-2
+    145	    0081  FF 76	FE		 push word ptr[bp-2]
+    146
+    147					 ;iload	-4
+    148	    0084  FF 76	FC		 push word ptr[bp-4]
+    149
+    150					 ;iconst 4
+    151	    0087  6A 04			 push word ptr 4
+    152
+    153					 ;iadd
+    154	    0089  5B			 pop bx
+    155	    008A  58			 pop ax
+    156	    008B  03 C3			 add ax,bx
+    157	    008D  50			 push ax
+    158
+    159					 ;iinfegal
+    160	    008E  5B			 pop bx
+    161	    008F  58			 pop ax
+    162	    0090  3B C3			 cmp ax,bx
+    163	    0092  7F 04			 jg $+6
+    164	    0094  6A FF			 push -1
+    165	    0096  EB 02			 jmp $+4
+    166	    0098  6A 00			 push 0
+    167
+    168					 ;alaligne
+    169	    009A  E8 0000e		 call ligsuiv
+    170
+    171					 ;queue
+Turbo Assembler	 Version 4.1	    03/18/14 09:40:09	    Page 4
+ASM.asm
+
+
+
+    172	    009D  90			 nop
+    173					 EXITCODE
+1   174	    009E  B4 4C				 MOV	 AH,4Ch
+1   175	    00A0  CD 21				 INT	 21h
+    176					 end debut
+
