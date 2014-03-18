@@ -85,8 +85,8 @@ public class YVMasm extends YVM{
 	
 	void ior() {
 		Ecriture.ecrireStringln(out,";ior");
-		Ecriture.ecrireStringln(out,"push bx");
-		Ecriture.ecrireStringln(out,"push ax");
+		Ecriture.ecrireStringln(out,"pop bx");
+		Ecriture.ecrireStringln(out,"pop ax");
 		Ecriture.ecrireStringln(out,"or ax,bx");
 		Ecriture.ecrireStringln(out,"push ax");
 		Ecriture.ecrireStringln(out,"");
