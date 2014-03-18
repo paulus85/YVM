@@ -125,18 +125,30 @@ public class Expression {
 					break;
 				case ">" : 
 					Yaka.yvm.isup();
+					if(type2 == Type.BOOLEEN){
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+					}
 					pile_type.add(Type.BOOLEEN);
 					break;
 				case "<=" : 
 					Yaka.yvm.iinfegal();
+					if(type2 == Type.BOOLEEN){
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+					}
 					pile_type.add(Type.BOOLEEN);
 					break;
 				case ">=" : 
 					Yaka.yvm.isupegal();
+					if(type2 == Type.BOOLEEN){
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+					}
 					pile_type.add(Type.BOOLEEN);
 					break;
 				case "<>" : 
 					Yaka.yvm.idiff();
+					if(type2 == Type.BOOLEEN){
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+					}
 					pile_type.add(Type.BOOLEEN);
 					break;
 				case "+" : 
