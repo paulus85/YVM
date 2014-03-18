@@ -26,7 +26,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,".model SMALL");
 		Ecriture.ecrireStringln(out,".586");
 		Ecriture.ecrireStringln(out,"\n.CODE");
-		Ecriture.ecrireStringln(out,".debut : ");
+		Ecriture.ecrireStringln(out,"debut : ");
 		Ecriture.ecrireStringln(out,"STARTUPCODE");
 		Ecriture.ecrireStringln(out,"");
 	}
