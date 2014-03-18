@@ -191,7 +191,7 @@ public class YVMasm extends YVM{
 	
 	void iconst(int val) {
 		Ecriture.ecrireStringln(out,";iconst "+val);
-		Ecriture.ecrireStringln(out,"push word ptr"+val);
+		Ecriture.ecrireStringln(out,"push word ptr "+val);
 		Ecriture.ecrireStringln(out,"");
 	}
 	

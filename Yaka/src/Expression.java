@@ -79,7 +79,7 @@ public class Expression {
 	public void neg() {
 		Type type = Type.ERREUR;
 		try{
-			type = pile_type.pop();
+			type = pile_type.peek();
 		} catch(EmptyStackException e) {}
 		switch(type) {
 			case ENTIER : 
@@ -95,11 +95,13 @@ public class Expression {
 	}	
 	
 	
-	public void generationCalcul() {				
+	public void generationCalcul() {		
+		
 		try{
 			String op = pile_op.pop();
 			Type type1 = pile_type.pop();
 			Type type2 = pile_type.pop();
+			
 			if(type1 != type2) {
 				throw new TypesIncompatiblesException("Types incompatibles " + type1 + " et " + type2 + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn + " colonne : " + Yaka.token.beginColumn);
 			}		
