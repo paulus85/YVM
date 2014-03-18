@@ -20,8 +20,16 @@ public class Declaration {
 	 * @param val valeur de la constante
 	 */
 	public void declConst(int val) {
-		IdConst constante = new IdConst(Type.ENTIER, val);
-		Yaka.tabIdent.rangeIdent(this.nom, constante);
+		try {
+			if(Yaka.tabIdent.existeIdent(this.nom)) {
+				throw new DejaDeclareeException(this.nom + " : constante déjà déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			}
+			IdConst constante = new IdConst(Type.ENTIER, val);
+			Yaka.tabIdent.rangeIdent(this.nom, constante);
+		}
+		catch (DejaDeclareeException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	/**
@@ -29,15 +37,16 @@ public class Declaration {
 	 * @param val valeur de la constante
 	 */
 	public void declConst(boolean val) {
-		if(Yaka.tabIdent.existeIdent(this.nom)) {
-			try {
+		try {
+			if(Yaka.tabIdent.existeIdent(this.nom)) {
 				throw new DejaDeclareeException(this.nom + " : constante déjà déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			} catch (DejaDeclareeException e) {
-				System.out.println(e.getMessage());
 			}
+			IdConst constante = new IdConst(Type.BOOLEEN, val);
+			Yaka.tabIdent.rangeIdent(this.nom, constante);
 		}
-		IdConst constante = new IdConst(Type.BOOLEEN, val);
-		Yaka.tabIdent.rangeIdent(this.nom, constante);
+		catch (DejaDeclareeException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	/**
@@ -45,15 +54,16 @@ public class Declaration {
 	 * @param nom nom de la constante source
 	 */
 	public void declConst(String nomSource) {
-		if(Yaka.tabIdent.existeIdent(this.nom)) {
-			try {
+		try {
+			if(Yaka.tabIdent.existeIdent(this.nom)) {
 				throw new DejaDeclareeException(this.nom + " : constante déjà déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			} catch (DejaDeclareeException e) {
-				System.out.println(e.getMessage());
 			}
+			IdConst constante = (IdConst) Yaka.tabIdent.chercheIdent(nomSource);
+			Yaka.tabIdent.rangeIdent(this.nom, constante);
 		}
-		IdConst constante = (IdConst) Yaka.tabIdent.chercheIdent(nomSource);
-		Yaka.tabIdent.rangeIdent(this.nom, constante);
+		catch (DejaDeclareeException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	/**
@@ -69,21 +79,22 @@ public class Declaration {
 	 * @param nom nom de la variable declaree
 	 */
 	public void declVar(String nom) {
-		if(Yaka.tabIdent.existeIdent(nom)) {
-			try {
+		try {
+			if(Yaka.tabIdent.existeIdent(nom)) {
 				throw new DejaDeclareeException(nom + " : variable déjà déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			} catch (DejaDeclareeException e) {
-				System.out.println(e.getMessage());
 			}
+			IdVar variable;
+			Yaka.tabIdent.offset -= 2;
+			if(isInteger) {
+				variable = new IdVar(Type.ENTIER, Yaka.tabIdent.offset);			
+			}
+			else {
+				variable = new IdVar(Type.BOOLEEN, Yaka.tabIdent.offset);
+			}
+			Yaka.tabIdent.rangeIdent(nom, variable);
 		}
-		IdVar variable;
-		Yaka.tabIdent.offset -= 2;
-		if(isInteger) {
-			variable = new IdVar(Type.ENTIER, Yaka.tabIdent.offset);			
+		catch (DejaDeclareeException e) {
+			System.out.println(e.getMessage());
 		}
-		else {
-			variable = new IdVar(Type.BOOLEEN, Yaka.tabIdent.offset);
-		}
-		Yaka.tabIdent.rangeIdent(nom, variable);
 	}
 }
