@@ -196,7 +196,7 @@ public class YVMasm extends YVM{
 	}
 	
 	void iconst(boolean val) {
-		Ecriture.ecrireStringln(out,"iconst "+val);
+		Ecriture.ecrireStringln(out,";iconst "+val);
 		if (val) Ecriture.ecrireStringln(out,"push -1");
 		else Ecriture.ecrireStringln(out,"push 0");
 		Ecriture.ecrireStringln(out,"");
@@ -210,7 +210,7 @@ public class YVMasm extends YVM{
 	}
 	
 	void iload(int offset) {
-		Ecriture.ecrireStringln(out,"iload "+offset);
+		Ecriture.ecrireStringln(out,";iload "+offset);
 		Ecriture.ecrireStringln(out,"push word ptr[bp"+offset+"]");
 		Ecriture.ecrireStringln(out,"");
 	}
