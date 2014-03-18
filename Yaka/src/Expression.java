@@ -21,10 +21,10 @@ public class Expression {
 	public void stockIdent(String s) {
 		try {
 			if(!Yaka.tabIdent.existeIdent(s))
-				throw new NonDeclareeException(s + " : variable non déclarée ligne : " + Yaka.token.beginLine);
+				throw new NonDeclareeException(s + " : variable non déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			variableAffectation = Yaka.tabIdent.chercheIdent(s);
 			if(!(variableAffectation instanceof IdVar))
-				throw new ModifConstanteException(s + " : Impossible de modifier une constante ligne : " + Yaka.token.beginLine);
+				throw new ModifConstanteException(s + " : Impossible de modifier une constante ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 		}
 		catch(NonDeclareeException e) {
 			System.out.println(e.getMessage());
@@ -48,17 +48,19 @@ public class Expression {
 	public void addIdent(String s) {
 		try { 
 			if(!Yaka.tabIdent.existeIdent(s)) {
-				throw new NonDeclareeException(s+ " : variable ou constante non déclarée ligne : " + Yaka.token.beginLine);
+				pile_type.add(Type.ERREUR);
+				throw new NonDeclareeException(s+ " : variable ou constante non déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			Ident ident = Yaka.tabIdent.chercheIdent(s);
 			pile_type.add(ident.getType());
 			if(ident instanceof IdVar)
 				Yaka.yvm.iload(((IdVar) ident).getOffset());
-			else
+			else {
 				if(ident.getType() == Type.ENTIER)
 					Yaka.yvm.iconst(((IdConst) ident).getValInt());
 				else
 					Yaka.yvm.iconst(((IdConst) ident).getValBool());
+			}
 		}
 		catch(NonDeclareeException e) {
 			System.out.println(e.getMessage());
@@ -78,10 +80,7 @@ public class Expression {
 		Type type = Type.ERREUR;
 		try{
 			type = pile_type.pop();
-		} catch(EmptyStackException e) {
-			System.out.println(e.getMessage());
-		}
-		
+		} catch(EmptyStackException e) {}
 		switch(type) {
 			case ENTIER : 
 				Yaka.yvm.ineg();
@@ -96,13 +95,13 @@ public class Expression {
 	}	
 	
 	
-	public void generationCalcul() {		
+	public void generationCalcul() {				
 		try{
 			String op = pile_op.pop();
 			Type type1 = pile_type.pop();
 			Type type2 = pile_type.pop();
 			if(type1 != type2) {
-				throw new TypesIncompatiblesException("Types incompatibles " + type1 + " et " + type2 + " ligne : " + Yaka.token.beginLine);
+				throw new TypesIncompatiblesException("Types incompatibles " + type1 + " et " + type2 + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn + " colonne : " + Yaka.token.beginColumn);
 			}		
 			switch(op) {
 				case "=" : 
@@ -132,42 +131,42 @@ public class Expression {
 				case "+" : 
 					Yaka.yvm.iadd();
 					if(type2 != Type.ENTIER){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "-" : 
 					Yaka.yvm.isub();
 					if(type2 != Type.ENTIER){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "OU" : 
 					Yaka.yvm.ior();
 					if(type2 != Type.BOOLEEN){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "ET" : 
 					Yaka.yvm.iand();
 					if(type2 != Type.BOOLEEN){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "*" : 
 					Yaka.yvm.imul();
 					if(type2 != Type.ENTIER){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "/" : 
 					Yaka.yvm.idiv();
 					if(type2 != Type.ENTIER){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
@@ -176,9 +175,7 @@ public class Expression {
 					break;
 			}
 		} 
-		catch(EmptyStackException e){
-			System.out.println(e.getMessage());
-		} 
+		catch(EmptyStackException e){} 
 		catch(TypesIncompatiblesException e2){
 			System.out.println(e2.getMessage());
 		}
@@ -193,9 +190,7 @@ public class Expression {
 		Type type = Type.ERREUR;
 		try {
 			type = pile_type.pop();
-		} catch(EmptyStackException e){
-			System.out.println(e.getMessage());
-		}
+		} catch(EmptyStackException e){}
 		switch(type) {
 			case ENTIER : 
 				Yaka.yvm.ecrireEnt();
@@ -215,10 +210,10 @@ public class Expression {
 	public void lire(String s) {
 		try {
 			if(!Yaka.tabIdent.existeIdent(s))
-				throw new NonDeclareeException(s + " : variable non déclarée ligne : " + Yaka.token.beginLine);
+				throw new NonDeclareeException(s + " : variable non déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			Ident ident = Yaka.tabIdent.chercheIdent(s);
 			if(!(ident instanceof IdVar))
-				throw new ModifConstanteException("Impossible de modifier une constante ligne : " + Yaka.token.beginLine);
+				throw new ModifConstanteException("Impossible de modifier une constante ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			else
 				Yaka.yvm.lireEnt(((IdVar) ident).getOffset());
 		}
