@@ -1,3 +1,6 @@
+package classes;
+import io.Ecriture;
+
 import java.io.OutputStream;
 
 

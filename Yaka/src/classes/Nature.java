@@ -1,3 +1,4 @@
+package classes;
 /**
 * Enum de nature
 * @author paulriviere

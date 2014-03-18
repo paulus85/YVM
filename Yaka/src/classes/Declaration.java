@@ -1,3 +1,7 @@
+package classes;
+import javacc.Yaka;
+import exceptions.DejaDeclareeException;
+
 /**
 * Gestion des declarations de variables et constantes (appels vers Ident, etc.)
 * @author paulriviere
