@@ -236,7 +236,7 @@ public class YVMasm extends YVM{
 		indexVar++;
 	}
 	
-	public void ecrireBool(boolean bool) {
+	public void ecrireBool() {
 		Ecriture.ecrireStringln(out,";ecrireBool");
 		Ecriture.ecrireStringln(out,"call ecrbool");
 		Ecriture.ecrireStringln(out,"");

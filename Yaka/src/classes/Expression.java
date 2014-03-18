@@ -108,8 +108,8 @@ public class Expression {
 			Type type1 = pile_type.pop();
 			Type type2 = pile_type.pop();
 			
-			if(type1 != type2) {
-				throw new TypesIncompatiblesException("Types incompatibles " + type1 + " et " + type2 + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn + " colonne : " + Yaka.token.beginColumn);
+			if(type1 != type2 && type1 != Type.ERREUR && type2 != Type.ERREUR) {
+				throw new TypesIncompatiblesException("Types incompatibles " + type1 + " et " + type2 + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}		
 			switch(op) {
 				case "=" : 
@@ -118,6 +118,9 @@ public class Expression {
 					break;
 				case "<" : 
 					Yaka.yvm.iinf();
+					if(type2 == Type.BOOLEEN){
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+					}
 					pile_type.add(Type.BOOLEEN);
 					break;
 				case ">" : 
@@ -138,42 +141,42 @@ public class Expression {
 					break;
 				case "+" : 
 					Yaka.yvm.iadd();
-					if(type2 != Type.ENTIER){
+					if(type2 == Type.BOOLEEN){
 						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "-" : 
 					Yaka.yvm.isub();
-					if(type2 != Type.ENTIER){
+					if(type2 == Type.BOOLEEN){
 						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "OU" : 
 					Yaka.yvm.ior();
-					if(type2 != Type.BOOLEEN){
+					if(type2 == Type.ENTIER){
 						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "ET" : 
 					Yaka.yvm.iand();
-					if(type2 != Type.BOOLEEN){
+					if(type2 == Type.ENTIER){
 						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "*" : 
 					Yaka.yvm.imul();
-					if(type2 != Type.ENTIER){
+					if(type2 == Type.BOOLEEN){
 						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "/" : 
 					Yaka.yvm.idiv();
-					if(type2 != Type.ENTIER){
+					if(type2 == Type.BOOLEEN){
 						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
