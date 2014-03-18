@@ -1,3 +1,4 @@
+package classes;
 
 /**
  * Classe IdVar : specialisation de la classe Ident pour les variables

@@ -1,6 +1,12 @@
+package classes;
 
 import java.util.Stack;
 import java.util.EmptyStackException;
+
+import javacc.Yaka;
+import exceptions.ModifConstanteException;
+import exceptions.NonDeclareeException;
+import exceptions.TypesIncompatiblesException;
 /**
  * Gestion du traitement des expressions
  * @author paulriviere

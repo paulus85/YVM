@@ -1,3 +1,4 @@
+package classes;
 import java.io.OutputStream;
 
 
@@ -18,7 +19,7 @@ public class YVMasm extends YVM{
 		indexVar=0;
 	}
 
-	void entete() {
+	public void entete() {
 		Ecriture.ecrireStringln(out,";entete");
 		Ecriture.ecrireStringln(out,"extrn lirent:proc, ecrent:proc");
 		Ecriture.ecrireStringln(out,"extrn ecrbool:proc");
@@ -31,14 +32,14 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void ouvrePrinc (int nbr) {
+	public void ouvrePrinc (int nbr) {
 		Ecriture.ecrireStringln(out,";ouvrePrinc "+nbr);
 		Ecriture.ecrireStringln(out,"mov bp,sp");
 		Ecriture.ecrireStringln(out,"sub sp,"+nbr);
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void enqueue() {
+	public void enqueue() {
 		Ecriture.ecrireStringln(out,";queue");
 		Ecriture.ecrireStringln(out,"nop");
 		Ecriture.ecrireStringln(out,"EXITCODE");
@@ -46,7 +47,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void iadd() {
+	public void iadd() {
 		Ecriture.ecrireStringln(out,";iadd");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -55,7 +56,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void isub() {
+	public void isub() {
 		Ecriture.ecrireStringln(out,";isub");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -64,7 +65,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void imul() {
+	public void imul() {
 		Ecriture.ecrireStringln(out,";imul");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -73,7 +74,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void idiv() {
+	public void idiv() {
 		Ecriture.ecrireStringln(out,";idiv");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -83,7 +84,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void ior() {
+	public void ior() {
 		Ecriture.ecrireStringln(out,";ior");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -93,7 +94,7 @@ public class YVMasm extends YVM{
 		
 	}
 	
-	void iand() {
+	public void iand() {
 		Ecriture.ecrireStringln(out,";iand");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -102,7 +103,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void ineg() {
+	public void ineg() {
 		Ecriture.ecrireStringln(out,";ineg");
 		Ecriture.ecrireStringln(out,"pop ax");
 		Ecriture.ecrireStringln(out,"neg ax");
@@ -110,7 +111,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void inot() {
+	public void inot() {
 		Ecriture.ecrireStringln(out,";inot");
 		Ecriture.ecrireStringln(out,"pop ax");
 		Ecriture.ecrireStringln(out,"not ax");
@@ -118,7 +119,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 
-	void iinf() {
+	public void iinf() {
 		Ecriture.ecrireStringln(out,";iinf");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -130,7 +131,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void isup() {
+	public void isup() {
 		Ecriture.ecrireStringln(out,";isup");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -142,7 +143,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void iinfegal() {
+	public void iinfegal() {
 		Ecriture.ecrireStringln(out,";iinfegal");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -154,7 +155,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void isupegal() {
+	public void isupegal() {
 		Ecriture.ecrireStringln(out,";isupegal");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -166,7 +167,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void iegal() {
+	public void iegal() {
 		Ecriture.ecrireStringln(out,";iegal");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -178,7 +179,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void idiff() {
+	public void idiff() {
 		Ecriture.ecrireStringln(out,";idiff");
 		Ecriture.ecrireStringln(out,"pop bx");
 		Ecriture.ecrireStringln(out,"pop ax");
@@ -189,39 +190,39 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"push 0");
 	}
 	
-	void iconst(int val) {
+	public void iconst(int val) {
 		Ecriture.ecrireStringln(out,";iconst "+val);
 		Ecriture.ecrireStringln(out,"push word ptr "+val);
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void iconst(boolean val) {
+	public void iconst(boolean val) {
 		Ecriture.ecrireStringln(out,";iconst "+val);
 		if (val) Ecriture.ecrireStringln(out,"push -1");
 		else Ecriture.ecrireStringln(out,"push 0");
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void istore(int offset) {
+	public void istore(int offset) {
 		Ecriture.ecrireStringln(out,";istore "+offset);
 		Ecriture.ecrireStringln(out,"pop ax");
 		Ecriture.ecrireStringln(out,"mov word ptr[bp"+offset+"],ax");
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void iload(int offset) {
+	public void iload(int offset) {
 		Ecriture.ecrireStringln(out,";iload "+offset);
 		Ecriture.ecrireStringln(out,"push word ptr[bp"+offset+"]");
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void ecrireEnt() {
+	public void ecrireEnt() {
 		Ecriture.ecrireStringln(out,";ecrireEnt");
 		Ecriture.ecrireStringln(out,"call ecrent");
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void ecrireChaine(String s) {
+	public void ecrireChaine(String s) {
 		Ecriture.ecrireStringln(out,";ecrireChaine "+s);
 		Ecriture.ecrireStringln(out,".DATA");
 		Ecriture.ecrireStringln(out,"mess"+indexVar+" DB "+s.substring(0, s.length() -1)+"$\"");
@@ -233,7 +234,7 @@ public class YVMasm extends YVM{
 		indexVar++;
 	}
 	
-	void ecrireBool(boolean bool) {
+	public void ecrireBool(boolean bool) {
 		Ecriture.ecrireStringln(out,";ecrireBool");
 		Ecriture.ecrireStringln(out,"call ecrch");
 		Ecriture.ecrireStringln(out,"");
@@ -243,7 +244,7 @@ public class YVMasm extends YVM{
 	 * @see YVM#lireEnt(int)
 	 * ATTENTION : entier est n�gatif !
 	 */
-	void lireEnt(int entier) {
+	public void lireEnt(int entier) {
 		Ecriture.ecrireStringln(out,";lireEnt "+entier);
 		Ecriture.ecrireStringln(out,"lea dx,[bp"+entier+"]");
 		Ecriture.ecrireStringln(out,"push dx");
@@ -251,7 +252,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	void aLaLigne () {
+	public void aLaLigne () {
 		Ecriture.ecrireStringln(out,";alaligne");
 		Ecriture.ecrireStringln(out,"call ligsuiv");
 		Ecriture.ecrireStringln(out,"");

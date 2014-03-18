@@ -1,3 +1,4 @@
+package classes;
 /**
  * Classe des idents
  * @author paulriviere
