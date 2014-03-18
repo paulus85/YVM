@@ -248,6 +248,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,"lea dx,[bp"+entier+"]");
 		Ecriture.ecrireStringln(out,"push dx");
 		Ecriture.ecrireStringln(out,"call lirent");
+		Ecriture.ecrireStringln(out,"");
 	}
 	
 	void aLaLigne () {
