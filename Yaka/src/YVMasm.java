@@ -26,7 +26,7 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,".model SMALL");
 		Ecriture.ecrireStringln(out,".586");
 		Ecriture.ecrireStringln(out,"\n.CODE");
-		Ecriture.ecrireStringln(out,".debut : ");
+		Ecriture.ecrireStringln(out,"debut : ");
 		Ecriture.ecrireStringln(out,"STARTUPCODE");
 		Ecriture.ecrireStringln(out,"");
 	}
@@ -85,8 +85,8 @@ public class YVMasm extends YVM{
 	
 	void ior() {
 		Ecriture.ecrireStringln(out,";ior");
-		Ecriture.ecrireStringln(out,"push bx");
-		Ecriture.ecrireStringln(out,"push ax");
+		Ecriture.ecrireStringln(out,"pop bx");
+		Ecriture.ecrireStringln(out,"pop ax");
 		Ecriture.ecrireStringln(out,"or ax,bx");
 		Ecriture.ecrireStringln(out,"push ax");
 		Ecriture.ecrireStringln(out,"");
@@ -95,8 +95,8 @@ public class YVMasm extends YVM{
 	
 	void iand() {
 		Ecriture.ecrireStringln(out,";iand");
-		Ecriture.ecrireStringln(out,"push bx");
-		Ecriture.ecrireStringln(out,"push ax");
+		Ecriture.ecrireStringln(out,"pop bx");
+		Ecriture.ecrireStringln(out,"pop ax");
 		Ecriture.ecrireStringln(out,"and ax,bx");
 		Ecriture.ecrireStringln(out,"push ax");
 		Ecriture.ecrireStringln(out,"");
@@ -196,7 +196,7 @@ public class YVMasm extends YVM{
 	}
 	
 	void iconst(boolean val) {
-		Ecriture.ecrireStringln(out,"iconst "+val);
+		Ecriture.ecrireStringln(out,";iconst "+val);
 		if (val) Ecriture.ecrireStringln(out,"push -1");
 		else Ecriture.ecrireStringln(out,"push 0");
 		Ecriture.ecrireStringln(out,"");
@@ -210,7 +210,7 @@ public class YVMasm extends YVM{
 	}
 	
 	void iload(int offset) {
-		Ecriture.ecrireStringln(out,"iload "+offset);
+		Ecriture.ecrireStringln(out,";iload "+offset);
 		Ecriture.ecrireStringln(out,"push word ptr[bp"+offset+"]");
 		Ecriture.ecrireStringln(out,"");
 	}
