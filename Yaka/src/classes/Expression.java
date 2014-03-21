@@ -4,9 +4,7 @@ import java.util.Stack;
 import java.util.EmptyStackException;
 
 import javacc.Yaka;
-import exceptions.ModifConstanteException;
-import exceptions.NonDeclareeException;
-import exceptions.TypesIncompatiblesException;
+import exceptions.*;
 /**
  * Gestion du traitement des expressions
  * @author paulriviere
@@ -27,7 +25,7 @@ public class Expression {
 	public void stockIdent(String s) {
 		try {
 			if(!Yaka.tabIdent.existeIdent(s))
-				throw new NonDeclareeException(s + " : variable non déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+				throw new NonDeclareeException(s + " : variable non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			variableAffectation = Yaka.tabIdent.chercheIdent(s);
 			if(!(variableAffectation instanceof IdVar))
 				throw new ModifConstanteException(s + " : Impossible de modifier une constante ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
@@ -55,7 +53,7 @@ public class Expression {
 		try { 
 			if(!Yaka.tabIdent.existeIdent(s)) {
 				pile_type.add(Type.ERREUR);
-				throw new NonDeclareeException(s+ " : variable ou constante non déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+				throw new NonDeclareeException(s+ " : variable ou constante non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			Ident ident = Yaka.tabIdent.chercheIdent(s);
 			pile_type.add(ident.getType());
@@ -100,6 +98,17 @@ public class Expression {
 		}
 	}	
 	
+	public void verifBool(){
+		try{
+			Type type = pile_type.pop();
+			if(type != Type.BOOLEEN && type != Type.ERREUR)
+				throw new ExprNonBoolException("Booleen attendu ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+		}
+		catch(EmptyStackException e){} 
+		catch(ExprNonBoolException e2){
+			System.out.println(e2.getMessage());
+		}
+	}
 	
 	public void generationCalcul() {		
 		
@@ -119,77 +128,77 @@ public class Expression {
 				case "<" : 
 					Yaka.yvm.iinf();
 					if(type2 == Type.BOOLEEN){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'operation " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(Type.BOOLEEN);
 					break;
 				case ">" : 
 					Yaka.yvm.isup();
 					if(type2 == Type.BOOLEEN){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'operation " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(Type.BOOLEEN);
 					break;
 				case "<=" : 
 					Yaka.yvm.iinfegal();
 					if(type2 == Type.BOOLEEN){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'operation " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(Type.BOOLEEN);
 					break;
 				case ">=" : 
 					Yaka.yvm.isupegal();
 					if(type2 == Type.BOOLEEN){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'operation " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(Type.BOOLEEN);
 					break;
 				case "<>" : 
 					Yaka.yvm.idiff();
 					if(type2 == Type.BOOLEEN){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'operation " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(Type.BOOLEEN);
 					break;
 				case "+" : 
 					Yaka.yvm.iadd();
 					if(type2 == Type.BOOLEEN){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'operation " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "-" : 
 					Yaka.yvm.isub();
 					if(type2 == Type.BOOLEEN){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'operation " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "OU" : 
 					Yaka.yvm.ior();
 					if(type2 == Type.ENTIER){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'operation " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "ET" : 
 					Yaka.yvm.iand();
 					if(type2 == Type.ENTIER){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'operation " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "*" : 
 					Yaka.yvm.imul();
 					if(type2 == Type.BOOLEEN){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'operation " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
 				case "/" : 
 					Yaka.yvm.idiv();
 					if(type2 == Type.BOOLEEN){
-						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'opération " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+						throw new TypesIncompatiblesException("Type " + type2 + " incompatible avec l'operation " + op + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					}
 					pile_type.add(type2);
 					break;
@@ -233,7 +242,7 @@ public class Expression {
 	public void lire(String s) {
 		try {
 			if(!Yaka.tabIdent.existeIdent(s))
-				throw new NonDeclareeException(s + " : variable non déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+				throw new NonDeclareeException(s + " : variable non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			Ident ident = Yaka.tabIdent.chercheIdent(s);
 			if(!(ident instanceof IdVar))
 				throw new ModifConstanteException("Impossible de modifier une constante ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);

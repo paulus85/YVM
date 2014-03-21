@@ -1,1 +1,7 @@
 /bin
+
+/.settings
+
+ASM.*
+YVM.yvm
+
