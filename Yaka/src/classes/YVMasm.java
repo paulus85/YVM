@@ -244,7 +244,7 @@ public class YVMasm extends YVM{
 	
 	/* (non-Javadoc)
 	 * @see YVM#lireEnt(int)
-	 * ATTENTION : entier est n�gatif !
+	 * ATTENTION : entier est negatif !
 	 */
 	public void lireEnt(int entier) {
 		Ecriture.ecrireStringln(out,";lireEnt "+entier);
@@ -258,6 +258,24 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,";alaligne");
 		Ecriture.ecrireStringln(out,"call ligsuiv");
 		Ecriture.ecrireStringln(out,"");
+	}
+	
+	public void iffaux(String s) {
+		Ecriture.ecrireStringln(out,";iffaux "+s);
+		Ecriture.ecrireStringln(out,"pop ax");
+		Ecriture.ecrireStringln(out,"cmp ax,0");
+		Ecriture.ecrireStringln(out,"je "+s);
+		Ecriture.ecrireStringln(out,"");
+	}
+	
+	public void gotoY (String s) {
+		Ecriture.ecrireStringln(out,";goto "+s);
+		Ecriture.ecrireStringln(out,"jmp "+s);
+		Ecriture.ecrireStringln(out,"");
+	}
+	
+	public void ecrireEtiquette (String s) {
+		Ecriture.ecrireStringln(out,s+":");
 	}
 	
 }

@@ -11,7 +11,6 @@ import java.io.OutputStream;
  */
 public class YVM {
 	private OutputStream out;
-	public YVMasm asm;
 	
 	public YVM() {
 		out = Ecriture.ouvrir("YVM.yvm");
@@ -122,4 +121,17 @@ public class YVM {
 	void aLaLigne () {
 		Ecriture.ecrireStringln(out,"aLaLigne");
 	}
+	
+	void iffaux (String s) {
+		Ecriture.ecrireStringln(out,"iffaux "+s);
+	}
+	
+	void gotoY(String s) {
+		Ecriture.ecrireStringln(out,"goto "+s);
+	}
+	
+	void ecrireEtiquette (String s) {
+		Ecriture.ecrireStringln(out,s+":");
+	}
+	
 }
