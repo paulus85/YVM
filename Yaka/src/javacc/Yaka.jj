@@ -114,7 +114,6 @@ TOKEN :
 | <ECRIRE : "ECRIRE">
 | <LIRE : "LIRE">
 | <ALALIGNE : "ALALIGNE">
-
 }
 
 
@@ -190,20 +189,17 @@ void type() :{}
 }
 
 /*
- * Syntaxe des instructions.
- */
-void suiteExpr() : {}
-{ 
-  (expression() (";" (expression())? )*)? 
-}
-
-/*
  * Syntaxe des affectation, entrees, sorties.
  */
 
+void iteration() : {}
+{
+  <TANTQUE> expression() {expr.verifBool();} <FAIRE> suiteInstr() <FAIT>
+}
+
 void suiteInstr() : {}
 {
-  instruction() ( ";" (instruction())? )*
+  iteration() |  ( instruction() (";" (instruction())? )* )
 }
 
 void instruction() : {}
