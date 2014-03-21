@@ -4,6 +4,7 @@ import java.util.Stack;
 import java.util.EmptyStackException;
 
 import javacc.Yaka;
+import javacc.YakaConstants;
 import exceptions.*;
 /**
  * Gestion du traitement des expressions
@@ -16,6 +17,7 @@ public class Expression {
 	private Stack<Type> pile_type;
 	private Stack<String> pile_op;
 	private Ident variableAffectation = null;
+	private int numEtiqTantque = 0;
 	
 	public Expression() {
 		pile_type = new Stack<Type>();
@@ -107,6 +109,20 @@ public class Expression {
 		catch(EmptyStackException e){} 
 		catch(ExprNonBoolException e2){
 			System.out.println(e2.getMessage());
+		}
+	}
+	
+	public void ecrireEtiq(int etiquette){
+		switch(etiquette){
+			case YakaConstants.TANTQUE :
+				numEtiqTantque++;
+				Yaka.yvm.ecrireEtiquette ("FAIRE"+numEtiqTantque+":");
+				break;
+			case YakaConstants.FAIT :
+				Yaka.yvm.ecrireEtiquette ("FAIT"+numEtiqTantque+":");
+				break;
+			default:
+				break;
 		}
 	}
 	

@@ -194,7 +194,9 @@ void type() :{}
 
 void iteration() : {}
 {
-  <TANTQUE> expression() {expr.verifBool();} <FAIRE> suiteInstr() <FAIT>
+  <TANTQUE> {expr.ecrireEtiq(YakaConstants.TANTQUE);} expression() {expr.verifBool();} 
+  <FAIRE> suiteInstr() 
+  <FAIT> {expr.ecrireEtiq(YakaConstants.FAIT);}
 }
 
 void suiteInstr() : {}
