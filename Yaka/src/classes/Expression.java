@@ -17,13 +17,16 @@ public class Expression {
 	private Stack<Type> pile_type;
 	private Stack<String> pile_op;
 	private Stack<Integer> pile_NiveauTANTQUE;
+	private Stack<Integer> pile_NiveauSI;
 	private Ident variableAffectation = null;
 	private int numEtiqTantque = 0;
+	private int numEtiqSi = 0;
 	
 	public Expression() {
 		pile_type = new Stack<Type>();
 		pile_op = new Stack<String>();
 		pile_NiveauTANTQUE = new Stack<Integer>();
+		pile_NiveauSI = new Stack<Integer>();
 	}
 	
 	public void stockIdent(String s) {
@@ -102,12 +105,21 @@ public class Expression {
 		}
 	}	
 	
-	public void verifBool(){
+	public void verifBool(int etiquette){
 		try{
-			Type type = pile_type.pop();
-			if(type != Type.BOOLEEN && type != Type.ERREUR)
-				throw new ExprNonBoolException("Booleen attendu ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			Yaka.yvm.iffaux("FAIT"+numEtiqTantque);
+			switch(etiquette){
+				case YakaConstants.TANTQUE :
+					Type type1 = pile_type.pop();
+					if(type1 != Type.BOOLEEN && type1 != Type.ERREUR)
+						throw new ExprNonBoolException("Booleen attendu ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+					Yaka.yvm.iffaux("FAIT"+numEtiqTantque);break;
+					
+				case YakaConstants.SI :
+					Type type2 = pile_type.pop();
+					if(type2 != Type.BOOLEEN && type2 != Type.ERREUR)
+						throw new ExprNonBoolException("Booleen attendu ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+					Yaka.yvm.iffaux("SINON"+numEtiqSi);break;
+			}	
 		}
 		catch(EmptyStackException e){} 
 		catch(ExprNonBoolException e2){
@@ -122,9 +134,25 @@ public class Expression {
 				pile_NiveauTANTQUE.push(numEtiqTantque);
 				Yaka.yvm.ecrireEtiquette ("FAIRE"+numEtiqTantque+":");
 				break;
+				
 			case YakaConstants.FAIT :
 				Yaka.yvm.gotoY("FAIRE"+pile_NiveauTANTQUE.peek());
 				Yaka.yvm.ecrireEtiquette ("FAIT"+pile_NiveauTANTQUE.pop()+":");
+				break;
+				
+			case YakaConstants.SI : 
+				numEtiqSi++;
+				pile_NiveauSI.push(numEtiqSi);
+				//Pas la peine d'écrire l'étiquette SI ;)
+				break;
+			
+			case YakaConstants.SINON :
+				Yaka.yvm.gotoY("FSI"+numEtiqSi);
+				Yaka.yvm.ecrireEtiquette ("SINON"+numEtiqSi+":");
+				break;
+				
+			case YakaConstants.FSI :
+				Yaka.yvm.ecrireEtiquette ("FSI"+pile_NiveauSI.pop()+":");
 				break;
 			default:
 				break;

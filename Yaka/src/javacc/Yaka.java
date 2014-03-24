@@ -187,6 +187,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       }
       jj_consume_token(41);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case SI:
       case TANTQUE:
       case ECRIRE:
       case LIRE:
@@ -215,6 +216,9 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       break;
     case TANTQUE:
       iteration();
+      break;
+    case SI:
+      conditionnelle();
       break;
     default:
       jj_la1[8] = jj_gen;
@@ -281,11 +285,32 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
     jj_consume_token(TANTQUE);
          expr.ecrireEtiq(YakaConstants.TANTQUE);
     expression();
-                                                                expr.verifBool();
+                                                                expr.verifBool(YakaConstants.TANTQUE);
     jj_consume_token(FAIRE);
     suiteInstr();
     jj_consume_token(FAIT);
          expr.ecrireEtiq(YakaConstants.FAIT);
+  }
+
+  static final public void conditionnelle() throws ParseException {
+    jj_consume_token(SI);
+         expr.ecrireEtiq(YakaConstants.SI);
+    expression();
+                                                           expr.verifBool(YakaConstants.SI);
+    jj_consume_token(ALORS);
+    suiteInstr();
+                      expr.ecrireEtiq(YakaConstants.SINON);
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case SINON:
+      jj_consume_token(SINON);
+      suiteInstr();
+      break;
+    default:
+      jj_la1[11] = jj_gen;
+      ;
+    }
+    jj_consume_token(FSI);
+         expr.ecrireEtiq(YakaConstants.FSI);
   }
 
 /*
@@ -305,7 +330,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
                                       expr.generationCalcul();
       break;
     default:
-      jj_la1[11] = jj_gen;
+      jj_la1[12] = jj_gen;
       ;
     }
   }
@@ -321,7 +346,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
         ;
         break;
       default:
-        jj_la1[12] = jj_gen;
+        jj_la1[13] = jj_gen;
         break label_6;
       }
       opAdd();
@@ -341,7 +366,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
         ;
         break;
       default:
-        jj_la1[13] = jj_gen;
+        jj_la1[14] = jj_gen;
         break label_7;
       }
       opMul();
@@ -366,7 +391,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
                          expr.neg();
       break;
     default:
-      jj_la1[14] = jj_gen;
+      jj_la1[15] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -386,7 +411,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       jj_consume_token(44);
       break;
     default:
-      jj_la1[15] = jj_gen;
+      jj_la1[16] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -411,7 +436,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
             expr.addEtat(false);
       break;
     default:
-      jj_la1[16] = jj_gen;
+      jj_la1[17] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -444,7 +469,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
          expr.addOperateur(">=");
       break;
     default:
-      jj_la1[17] = jj_gen;
+      jj_la1[18] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -465,7 +490,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
           expr.addOperateur("OU");
       break;
     default:
-      jj_la1[18] = jj_gen;
+      jj_la1[19] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -486,7 +511,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
           expr.addOperateur("ET");
       break;
     default:
-      jj_la1[19] = jj_gen;
+      jj_la1[20] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -501,7 +526,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       jj_consume_token(NON);
       break;
     default:
-      jj_la1[20] = jj_gen;
+      jj_la1[21] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -517,7 +542,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
   static public Token jj_nt;
   static private int jj_ntk;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[21];
+  static final private int[] jj_la1 = new int[22];
   static private int[] jj_la1_0;
   static private int[] jj_la1_1;
   static {
@@ -525,10 +550,10 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       jj_la1_init_1();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x80000,0x200,0x0,0x120000,0x0,0x8100,0x0,0x40000,0x40000,0x1120000,0x0,0x0,0x400000,0x800000,0x1120000,0x120000,0x120000,0x0,0x400000,0x800000,0x1000000,};
+      jj_la1_0 = new int[] {0x80000,0x200,0x0,0x120000,0x0,0x8100,0x0,0x42000,0x42000,0x1120000,0x0,0x800,0x0,0x400000,0x800000,0x1120000,0x120000,0x120000,0x0,0x400000,0x800000,0x1000000,};
    }
    private static void jj_la1_init_1() {
-      jj_la1_1 = new int[] {0x0,0x0,0x100,0x50,0x100,0x0,0x200,0x47,0x47,0x808d0,0x5,0x3e400,0xc0000,0x300000,0x80850,0x850,0x50,0x3e400,0xc0000,0x300000,0x80000,};
+      jj_la1_1 = new int[] {0x0,0x0,0x100,0x50,0x100,0x0,0x200,0x47,0x47,0x808d0,0x5,0x0,0x3e400,0xc0000,0x300000,0x80850,0x850,0x50,0x3e400,0xc0000,0x300000,0x80000,};
    }
 
   /** Constructor with InputStream. */
@@ -549,7 +574,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 22; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -563,7 +588,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 22; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -580,7 +605,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 22; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -590,7 +615,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 22; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -606,7 +631,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 22; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -615,7 +640,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 21; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 22; i++) jj_la1[i] = -1;
   }
 
   static private Token jj_consume_token(int kind) throws ParseException {
@@ -671,7 +696,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 21; i++) {
+    for (int i = 0; i < 22; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {

@@ -204,6 +204,7 @@ void instruction() : {}
   | lecture() 
   | ecriture()
   | iteration()
+  | conditionnelle()
 }
 
 void affectation() : {}
@@ -225,11 +226,23 @@ void ecriture() : {}
 void iteration() : {}
 {
   <TANTQUE> 
-  	{expr.ecrireEtiq(YakaConstants.TANTQUE);} expression() {expr.verifBool();} 
+  	{expr.ecrireEtiq(YakaConstants.TANTQUE);} expression() {expr.verifBool(YakaConstants.TANTQUE);} 
   <FAIRE> 
   	suiteInstr() 
   <FAIT> 
   	{expr.ecrireEtiq(YakaConstants.FAIT);}
+}
+
+void conditionnelle() : {}
+{
+  <SI> 
+  	{expr.ecrireEtiq(YakaConstants.SI);} expression() {expr.verifBool(YakaConstants.SI);} 
+  <ALORS> 
+  	suiteInstr() {expr.ecrireEtiq(YakaConstants.SINON);}
+  ( <SINON> 
+  	 suiteInstr() )?
+  <FSI>
+  	{expr.ecrireEtiq(YakaConstants.FSI);}
 }
 
 /*
