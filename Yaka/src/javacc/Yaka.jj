@@ -15,7 +15,8 @@ options{
 
 PARSER_BEGIN(Yaka)
 
-
+package javacc;
+import classes.*;
 
 public class Yaka {
 	

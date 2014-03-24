@@ -275,7 +275,7 @@ public class YVMasm extends YVM{
 	}
 	
 	public void ecrireEtiquette (String s) {
-		Ecriture.ecrireStringln(out,s+":");
+		Ecriture.ecrireStringln(out,s);
 	}
 	
 }

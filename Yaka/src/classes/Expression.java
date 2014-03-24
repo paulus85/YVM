@@ -16,12 +16,14 @@ import exceptions.*;
 public class Expression {
 	private Stack<Type> pile_type;
 	private Stack<String> pile_op;
+	private Stack<Integer> pile_NiveauTANTQUE;
 	private Ident variableAffectation = null;
 	private int numEtiqTantque = 0;
 	
 	public Expression() {
 		pile_type = new Stack<Type>();
 		pile_op = new Stack<String>();
+		pile_NiveauTANTQUE = new Stack<Integer>();
 	}
 	
 	public void stockIdent(String s) {
@@ -105,6 +107,7 @@ public class Expression {
 			Type type = pile_type.pop();
 			if(type != Type.BOOLEEN && type != Type.ERREUR)
 				throw new ExprNonBoolException("Booleen attendu ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			Yaka.yvm.iffaux("FAIT"+numEtiqTantque);
 		}
 		catch(EmptyStackException e){} 
 		catch(ExprNonBoolException e2){
@@ -116,10 +119,12 @@ public class Expression {
 		switch(etiquette){
 			case YakaConstants.TANTQUE :
 				numEtiqTantque++;
+				pile_NiveauTANTQUE.push(numEtiqTantque);
 				Yaka.yvm.ecrireEtiquette ("FAIRE"+numEtiqTantque+":");
 				break;
 			case YakaConstants.FAIT :
-				Yaka.yvm.ecrireEtiquette ("FAIT"+numEtiqTantque+":");
+				Yaka.yvm.gotoY("FAIRE"+pile_NiveauTANTQUE.peek());
+				Yaka.yvm.ecrireEtiquette ("FAIT"+pile_NiveauTANTQUE.pop()+":");
 				break;
 			default:
 				break;
