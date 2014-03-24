@@ -192,16 +192,9 @@ void type() :{}
  * Syntaxe des affectation, entrees, sorties.
  */
 
-void iteration() : {}
-{
-  <TANTQUE> {expr.ecrireEtiq(YakaConstants.TANTQUE);} expression() {expr.verifBool();} 
-  <FAIRE> suiteInstr() 
-  <FAIT> {expr.ecrireEtiq(YakaConstants.FAIT);}
-}
-
 void suiteInstr() : {}
 {
-  iteration() |  ( instruction() (";" (instruction())? )* )
+   instruction() (";" (instruction())? )* 
 }
 
 void instruction() : {}
@@ -209,6 +202,7 @@ void instruction() : {}
   affectation() 
   | lecture() 
   | ecriture()
+  | iteration()
 }
 
 void affectation() : {}
@@ -227,6 +221,15 @@ void ecriture() : {}
   | <ALALIGNE> {expr.retourLigne();}
 }
 
+void iteration() : {}
+{
+  <TANTQUE> 
+  	{expr.ecrireEtiq(YakaConstants.TANTQUE);} expression() {expr.verifBool();} 
+  <FAIRE> 
+  	suiteInstr() 
+  <FAIT> 
+  	{expr.ecrireEtiq(YakaConstants.FAIT);}
+}
 
 /*
  * Expression .
