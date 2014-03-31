@@ -134,4 +134,24 @@ public class YVM {
 		Ecriture.ecrireStringln(out,s+":");
 	}
 	
+	void ireturn (int offset) {
+		Ecriture.ecrireStringln(out, "ireturn " + offset);
+	}
+	
+	void reserveRetour () {
+		Ecriture.ecrireStringln(out, "reserveRetour");
+	}
+	
+	void ouvBloc (int v) {
+		Ecriture.ecrireStringln(out, "ouvbloc " + v);
+	}
+	
+	void fermeBloc (int v) {
+		Ecriture.ecrireStringln(out, "fermebloc " + v);
+	}
+	
+	void call (String s) {
+		Ecriture.ecrireStringln(out, "call " + s);
+	}
+	
 }

@@ -278,4 +278,35 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,s);
 	}
 	
+	void ireturn (int v) {
+		Ecriture.ecrireStringln(out,";ireturn " + v);
+		Ecriture.ecrireStringln(out,"pop ax");
+		Ecriture.ecrireStringln(out,"mov [bp+" + v + "],ax");
+		Ecriture.ecrireStringln(out,"");
+	}
+	
+	void reserveRetour () {
+		Ecriture.ecrireStringln(out,";reserveRetour");
+		Ecriture.ecrireStringln(out,"sub sp,2");
+		Ecriture.ecrireStringln(out,"");
+	}
+	
+	void ouvBloc (int v) {
+		Ecriture.ecrireStringln(out,";ouvbloc " + v);
+		Ecriture.ecrireStringln(out,"enter " + v + ",0");
+		Ecriture.ecrireStringln(out,"");
+	}
+	
+	void fermeBloc (int v) {
+		Ecriture.ecrireStringln(out,";fermebloc " + v);
+		Ecriture.ecrireStringln(out,"leave");
+		Ecriture.ecrireStringln(out,"ret " + v);
+		Ecriture.ecrireStringln(out,"");
+	}
+	
+	void call (String s) {
+		Ecriture.ecrireStringln(out,";call " + s);
+		Ecriture.ecrireStringln(out,"call " + s);
+		Ecriture.ecrireStringln(out,"");
+	}
 }

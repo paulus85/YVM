@@ -141,16 +141,37 @@ TOKEN  :
 /**************************************/
 void analyse() : {}
 {
-   <PROGRAMME> {yvm.entete();} /*entete*/<ident>
-   bloc()
-   <FPROGRAMME> {yvm.enqueue();}/*queue*/
+   <PROGRAMME> {yvm.entete();} <ident>
+   ( declFonction() )*
+	   <PRINCIPAL>
+	   		bloc()
+	   <FPRINCIPAL>
+   <FPROGRAMME> {yvm.enqueue();}
 }
 
-void bloc() : {}{
- (declConst())*
- (declVar())*
- {yvm.ouvrePrinc(Math.abs(tabIdent.offset));}
- suiteInstr() 
+void declFonction() : {}
+{
+	type() <FONCTION> <ident> paramForms()
+	bloc()
+	<FFONCTION>  
+}
+
+void paramForms() : {}
+{
+	"(" (paramForm() ("," paramForm())* )? ")"
+}
+
+void paramForm() : {}
+{
+	type() <ident> 
+}
+
+void bloc() : {}
+{
+	 (declConst())*
+	 (declVar())*
+	 {yvm.ouvrePrinc(Math.abs(tabIdent.offset));}
+	 suiteInstr() 
 }
 
 void declConst() : {}
@@ -183,7 +204,7 @@ void declVar() : {}
 	
 }
 
-void type() :{}
+void type() : {}
 {
    <ENTIER> {decl.setIsInteger(true);}			
  | <BOOLEEN> {decl.setIsInteger(false);}	
@@ -205,6 +226,7 @@ void instruction() : {}
   | ecriture()
   | iteration()
   | conditionnelle()
+  | retourne()
 }
 
 void affectation() : {}
@@ -245,6 +267,11 @@ void conditionnelle() : {}
   	{expr.ecrireEtiq(YakaConstants.FSI);}
 }
 
+void retourne() : {}
+{
+  <RETOURNE> expression()
+}
+
 /*
  * Expression .
  */
@@ -278,10 +305,14 @@ void primaire (): {}
 
 void valeur () : {}
 { <entier> {expr.addEntier(YakaTokenManager.entierLu);}		
- | <ident> {expr.addIdent(YakaTokenManager.identLu);}		
+ | <ident> (argumentsFonction() )?  {expr.addIdent(YakaTokenManager.identLu);}		
  | <VRAI>  {expr.addEtat(true);}		
  | <FAUX>  {expr.addEtat(false);}		
- 
+}
+
+void argumentsFonction() : {}
+{
+	 "(" (expression() ("," expression() )*  )? ")"
 }
 
 void opRel() : {}
