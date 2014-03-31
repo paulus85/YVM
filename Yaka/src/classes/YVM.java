@@ -17,141 +17,140 @@ public class YVM {
 		Ecriture.ecrireStringln(out,";*********CODE YVM - COMPILATEUR YVM ***********");
 	}
 
-	void entete() {
+	public void entete() {
 		Ecriture.ecrireStringln(out,"entete");
 	}
 	
-	void ouvrePrinc (int nbr) {
+	public void ouvrePrinc (int nbr) {
 		Ecriture.ecrireStringln(out,"ouvrePrinc "+nbr);
 	}
 	
-	void enqueue() {
+	public void enqueue() {
 		Ecriture.ecrireStringln(out,"queue");
 	}
 	
-	void iadd() {
+	public void iadd() {
 		Ecriture.ecrireStringln(out,"iadd");
 	}
 	
-	void isub() {
+	public void isub() {
 		Ecriture.ecrireStringln(out,"isub");
 	}
 	
-	void imul() {
+	public void imul() {
 		Ecriture.ecrireStringln(out,"imul");
 	}
 	
-	void idiv() {
+	public void idiv() {
 		Ecriture.ecrireStringln(out,"idiv");
 	}
 	
-	void ineg() {
+	public void ineg() {
 		Ecriture.ecrireStringln(out,"ineg");
 	}
 	
-	void inot() {
+	public void inot() {
 		Ecriture.ecrireStringln(out,"inot");
 	}
 	
-	void ior() {
+	public void ior() {
 		Ecriture.ecrireStringln(out,"ior");
 	}
 	
-	void iand() {
+	public void iand() {
 		Ecriture.ecrireStringln(out,"iand");
 	}
 	
-	void iinf() {
+	public void iinf() {
 		Ecriture.ecrireStringln(out,"iinf");
 	}
 	
-	void isup() {
+	public void isup() {
 		Ecriture.ecrireStringln(out,"isup");
 	}
 	
-	void iinfegal() {
+	public void iinfegal() {
 		Ecriture.ecrireStringln(out,"iinfegal");
 	}
 	
-	void isupegal() {
+	public void isupegal() {
 		Ecriture.ecrireStringln(out,"isupegal");
 	}
 	
-	void iegal() {
+	public void iegal() {
 		Ecriture.ecrireStringln(out,"iegal");	
 	}
 	
-	void idiff() {
+	public void idiff() {
 		Ecriture.ecrireStringln(out,"idiff");
 	}
 	
-	void iconst(int val) {
+	public void iconst(int val) {
 		Ecriture.ecrireStringln(out,"iconst "+val);
 	}
 	
-	void iconst(boolean val) {
+	public void iconst(boolean val) {
 		if (val) Ecriture.ecrireStringln(out,"iconst -1");
 		else Ecriture.ecrireStringln(out,"iconst 0");
 	}
 	
-	void istore(int offset) {
+	public void istore(int offset) {
 		Ecriture.ecrireStringln(out,"istore "+offset);
 	}
 	
-	void iload(int offset) {
+	public void iload(int offset) {
 		Ecriture.ecrireStringln(out,"iload "+offset);
 	}
 	
-	void ecrireEnt() {
+	public void ecrireEnt() {
 		Ecriture.ecrireStringln(out,"ecrireEnt");
 	}
 	
-	void ecrireChaine(String s) {
+	public void ecrireChaine(String s) {
 		Ecriture.ecrireStringln(out,"ecrireChaine "+s);
 	}
 	
-	void ecrireBool() {
+	public void ecrireBool() {
 		Ecriture.ecrireStringln(out,"ecrireBool");
 	}
 	
-	void lireEnt(int offset) {
+	public void lireEnt(int offset) {
 		Ecriture.ecrireStringln(out,"lireEnt "+offset);
 	}
 	
-	void aLaLigne () {
+	public void aLaLigne () {
 		Ecriture.ecrireStringln(out,"aLaLigne");
 	}
 	
-	void iffaux (String s) {
+	public void iffaux (String s) {
 		Ecriture.ecrireStringln(out,"iffaux "+s);
 	}
 	
-	void gotoY(String s) {
+	public void gotoY(String s) {
 		Ecriture.ecrireStringln(out,"goto "+s);
 	}
 	
-	void ecrireEtiquette (String s) {
+	public void ecrireEtiquette (String s) {
 		Ecriture.ecrireStringln(out,s+":");
 	}
 	
-	void ireturn (int offset) {
+	public void ireturn (int offset) {
 		Ecriture.ecrireStringln(out, "ireturn " + offset);
 	}
 	
-	void reserveRetour () {
+	public void reserveRetour () {
 		Ecriture.ecrireStringln(out, "reserveRetour");
 	}
 	
-	void ouvBloc (int v) {
+	public void ouvBloc (int v) {
 		Ecriture.ecrireStringln(out, "ouvbloc " + v);
 	}
 	
-	void fermeBloc (int v) {
+	public void fermeBloc (int v) {
 		Ecriture.ecrireStringln(out, "fermebloc " + v);
 	}
 	
-	void call (String s) {
+	public void call (String s) {
 		Ecriture.ecrireStringln(out, "call " + s);
 	}
-	
 }
