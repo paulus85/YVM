@@ -26,7 +26,7 @@ public class Declaration {
 	public void declConst(int val) {
 		try {
 			if(Yaka.tabIdent.existeIdent(this.nom)) {
-				throw new DejaDeclareeException(this.nom + " : constante déjà déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+				throw new DejaDeclareeException(this.nom + " : constante deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			IdConst constante = new IdConst(Type.ENTIER, val);
 			Yaka.tabIdent.rangeIdent(this.nom, constante);
@@ -43,7 +43,7 @@ public class Declaration {
 	public void declConst(boolean val) {
 		try {
 			if(Yaka.tabIdent.existeIdent(this.nom)) {
-				throw new DejaDeclareeException(this.nom + " : constante déjà déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+				throw new DejaDeclareeException(this.nom + " : constante deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			IdConst constante = new IdConst(Type.BOOLEEN, val);
 			Yaka.tabIdent.rangeIdent(this.nom, constante);
@@ -60,7 +60,7 @@ public class Declaration {
 	public void declConst(String nomSource) {
 		try {
 			if(Yaka.tabIdent.existeIdent(this.nom)) {
-				throw new DejaDeclareeException(this.nom + " : constante déjà déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+				throw new DejaDeclareeException(this.nom + " : constante deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			IdConst constante = (IdConst) Yaka.tabIdent.chercheIdent(nomSource);
 			Yaka.tabIdent.rangeIdent(this.nom, constante);
@@ -85,7 +85,7 @@ public class Declaration {
 	public void declVar(String nom) {
 		try {
 			if(Yaka.tabIdent.existeIdent(nom)) {
-				throw new DejaDeclareeException(nom + " : variable déjà déclarée ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+				throw new DejaDeclareeException(nom + " : variable deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			IdVar variable;
 			Yaka.tabIdent.offset -= 2;
