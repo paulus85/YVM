@@ -31,9 +31,9 @@ public class Expression {
 	
 	public void stockIdent(String s) {
 		try {
-			if(!Yaka.tabIdent.existeIdent(s))
+			if(!Yaka.tabIdent.existeIdentLocal(s))
 				throw new NonDeclareeException(s + " : variable non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			variableAffectation = Yaka.tabIdent.chercheIdent(s);
+			variableAffectation = Yaka.tabIdent.chercheIdentLocal(s);
 			if(!(variableAffectation instanceof IdVar))
 				throw new ModifConstanteException(s + " : Impossible de modifier une constante ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 		}
@@ -58,11 +58,11 @@ public class Expression {
 	
 	public void addIdent(String s) {
 		try { 
-			if(!Yaka.tabIdent.existeIdent(s)) {
+			if(!Yaka.tabIdent.existeIdentLocal(s)) {
 				pile_type.add(Type.ERREUR);
 				throw new NonDeclareeException(s+ " : variable ou constante non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
-			Ident ident = Yaka.tabIdent.chercheIdent(s);
+			Ident ident = Yaka.tabIdent.chercheIdentLocal(s);
 			pile_type.add(ident.getType());
 			if(ident instanceof IdVar)
 				Yaka.yvm.iload(((IdVar) ident).getOffset());
@@ -290,9 +290,9 @@ public class Expression {
 	
 	public void lire(String s) {
 		try {
-			if(!Yaka.tabIdent.existeIdent(s))
+			if(!Yaka.tabIdent.existeIdentLocal(s))
 				throw new NonDeclareeException(s + " : variable non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			Ident ident = Yaka.tabIdent.chercheIdent(s);
+			Ident ident = Yaka.tabIdent.chercheIdentLocal(s);
 			if(!(ident instanceof IdVar))
 				throw new ModifConstanteException("Impossible de modifier une constante ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			else

@@ -1,5 +1,5 @@
 package classes;
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import javacc.Yaka;
 import exceptions.DejaDeclareeException;
@@ -14,6 +14,8 @@ public class Declaration {
 	private String nomFonc;
 	private Boolean isInteger;
 	private IdFonc fonction;
+	private int offset = 0;
+	private ArrayList<String> listeParams = new ArrayList<String>();
 
 	/**
 	 * Methode pour sauvegarder le nom d'une constante
@@ -92,12 +94,12 @@ public class Declaration {
 				throw new DejaDeclareeException(nom + " : variable deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			IdVar variable;
-			IdVar.setOffset(IdVar.getOffset() - 2);
+			offset -= 2;
 			if(isInteger) {
-				variable = new IdVar(Type.ENTIER, IdVar.getOffset());			
+				variable = new IdVar(Type.ENTIER, offset);			
 			}
 			else {
-				variable = new IdVar(Type.BOOLEEN, IdVar.getOffset());
+				variable = new IdVar(Type.BOOLEEN, offset);
 			}
 			Yaka.tabIdent.rangeIdentLocal(nom, variable);
 		}
@@ -119,15 +121,7 @@ public class Declaration {
 	}
 	
 	/**
-	 * Methode pour ajouter un type d'un paramètre de la fonction
-	 * @param type le type du paramètre
-	 */
-	public void addTypeParam(Type type) {
-		this.fonction.addArg(type);
-	}
-	
-	/**
-	 * Methode pour enregistrer un paramètre tabIdent
+	 * Methode pour ajouter le type du paramètre à la fonction (globaux) et pour ajouter l'IdParam dans une liste temporaire
 	 * @param nom nom du paramètre declaree
 	 */
 	public void declParam(String nom) {
@@ -138,11 +132,13 @@ public class Declaration {
 			IdParam idParam;
 			if(isInteger) {
 				idParam = new IdParam(Type.ENTIER, 0);
-				addTypeParam(Type.ENTIER);
+				fonction.addArg(Type.ENTIER);
+				listeParams.add(nom);
 			}
 			else {
 				idParam = new IdParam(Type.BOOLEEN, 0);
-				addTypeParam(Type.BOOLEEN);
+				fonction.addArg(Type.BOOLEEN);
+				listeParams.add(nom);
 			}
 			Yaka.tabIdent.rangeIdentLocal(nom, idParam);
 		}
@@ -155,8 +151,14 @@ public class Declaration {
 	 * Methode pour calculer l'offset des paramètres
 	 * @param nom nom du paramètre declaree
 	 */
-	public void calculOffset(String nom) {
-		HashMap<String,Ident> locaux = Yaka.tabIdent.getLocaux();
+	public void calculOffset() {
+		int i;
+		String nom;
+		int taille = listeParams.size() * 2;
+		for(i=0;i<taille;i++) {
+			nom = listeParams.get(i);
+			((IdParam) Yaka.tabIdent.chercheIdentLocal(nom)).setOffset(taille + 4 - i * 2);
+		}
 	}
 	
 	/**
@@ -173,5 +175,9 @@ public class Declaration {
 		catch (DejaDeclareeException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	public int getOffset() {
+		return offset;
 	}
 }

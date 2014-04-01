@@ -8,19 +8,19 @@ package classes;
  */
 public class IdVar extends Ident{
 
-	private static int offset;
+	private int offset;
 	
 
 	/**
 	 * @return the offset
 	 */
-	public static int getOffset() {
+	public int getOffset() {
 		return offset;
 	}
 
 
-	public static void setOffset(int offset) {
-		offset = offset;
+	public void setOffset(int offset) {
+		this.offset = offset;
 	}
 
 

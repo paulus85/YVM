@@ -170,7 +170,7 @@ void bloc() : {}
 {
 	 (declConst())*
 	 (declVar())*
-	 {yvm.ouvrePrinc(Math.abs(tabIdent.offset));}
+	 {yvm.ouvrePrinc(Math.abs(decl.offset));}
 	 suiteInstr() 
 }
 
