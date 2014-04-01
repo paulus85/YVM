@@ -1,4 +1,6 @@
 package classes;
+import java.util.HashMap;
+
 import javacc.Yaka;
 import exceptions.DejaDeclareeException;
 
@@ -9,10 +11,12 @@ import exceptions.DejaDeclareeException;
 */
 public class Declaration {
 	private String nom;
-	private Boolean isInteger;	
+	private String nomFonc;
+	private Boolean isInteger;
+	private IdFonc fonction;
 
 	/**
-	 * Methode pour sauvegarder le nom d'une constante ou d'une fonction
+	 * Methode pour sauvegarder le nom d'une constante
 	 * @param nom le nom de la constante ou de la fonction
 	 */
 	public void setNom(String nom) {
@@ -25,11 +29,11 @@ public class Declaration {
 	 */
 	public void declConst(int val) {
 		try {
-			if(Yaka.tabIdent.existeIdent(this.nom)) {
+			if(Yaka.tabIdent.existeIdentLocal(this.nom)) {
 				throw new DejaDeclareeException(this.nom + " : constante deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			IdConst constante = new IdConst(Type.ENTIER, val);
-			Yaka.tabIdent.rangeIdent(this.nom, constante);
+			Yaka.tabIdent.rangeIdentLocal(this.nom, constante);
 		}
 		catch (DejaDeclareeException e) {
 			System.out.println(e.getMessage());
@@ -42,11 +46,11 @@ public class Declaration {
 	 */
 	public void declConst(boolean val) {
 		try {
-			if(Yaka.tabIdent.existeIdent(this.nom)) {
+			if(Yaka.tabIdent.existeIdentLocal(this.nom)) {
 				throw new DejaDeclareeException(this.nom + " : constante deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			IdConst constante = new IdConst(Type.BOOLEEN, val);
-			Yaka.tabIdent.rangeIdent(this.nom, constante);
+			Yaka.tabIdent.rangeIdentLocal(this.nom, constante);
 		}
 		catch (DejaDeclareeException e) {
 			System.out.println(e.getMessage());
@@ -59,11 +63,11 @@ public class Declaration {
 	 */
 	public void declConst(String nomSource) {
 		try {
-			if(Yaka.tabIdent.existeIdent(this.nom)) {
+			if(Yaka.tabIdent.existeIdentLocal(this.nom)) {
 				throw new DejaDeclareeException(this.nom + " : constante deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
-			IdConst constante = (IdConst) Yaka.tabIdent.chercheIdent(nomSource);
-			Yaka.tabIdent.rangeIdent(this.nom, constante);
+			IdConst constante = (IdConst) Yaka.tabIdent.chercheIdentLocal(nomSource);
+			Yaka.tabIdent.rangeIdentLocal(this.nom, constante);
 		}
 		catch (DejaDeclareeException e) {
 			System.out.println(e.getMessage());
@@ -71,7 +75,7 @@ public class Declaration {
 	}
 
 	/**
-	 * Methode pour enregistrer le type de la variable ou le type de retour de la fonction declaree
+	 * Methode pour enregistrer le type de la variable ou le type d'un paramètre ou le type de retour de la fonction declaree
 	 * @param b vrai si type entier, faux si type booleen
 	 */
 	public void setIsInteger(boolean b) {
@@ -84,18 +88,18 @@ public class Declaration {
 	 */
 	public void declVar(String nom) {
 		try {
-			if(Yaka.tabIdent.existeIdent(nom)) {
+			if(Yaka.tabIdent.existeIdentLocal(nom)) {
 				throw new DejaDeclareeException(nom + " : variable deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			IdVar variable;
-			Yaka.tabIdent.offset -= 2;
+			IdVar.setOffset(IdVar.getOffset() - 2);
 			if(isInteger) {
-				variable = new IdVar(Type.ENTIER, Yaka.tabIdent.offset);			
+				variable = new IdVar(Type.ENTIER, IdVar.getOffset());			
 			}
 			else {
-				variable = new IdVar(Type.BOOLEEN, Yaka.tabIdent.offset);
+				variable = new IdVar(Type.BOOLEEN, IdVar.getOffset());
 			}
-			Yaka.tabIdent.rangeIdent(nom, variable);
+			Yaka.tabIdent.rangeIdentLocal(nom, variable);
 		}
 		catch (DejaDeclareeException e) {
 			System.out.println(e.getMessage());
@@ -103,18 +107,71 @@ public class Declaration {
 	}
 	
 	/**
+	 * Methode pour sauvegarder le nom d'une d'une fonction
+	 * @param nom le nom de la constante ou de la fonction
+	 */
+	public void setNomFonc(String nom) {
+		nomFonc = nom;
+		if(isInteger) 
+			fonction = new IdFonc(Type.ENTIER);
+		else 
+			fonction = new IdFonc(Type.BOOLEEN);
+	}
+	
+	/**
 	 * Methode pour ajouter un type d'un paramètre de la fonction
 	 * @param type le type du paramètre
 	 */
 	public void addTypeParam(Type type) {
-		
+		this.fonction.addArg(type);
 	}
 	
 	/**
-	 * Methode pour déclarer une fonction
+	 * Methode pour enregistrer un paramètre tabIdent
+	 * @param nom nom du paramètre declaree
+	 */
+	public void declParam(String nom) {
+		try {
+			if(Yaka.tabIdent.existeIdentLocal(nom)) {
+				throw new DejaDeclareeException(nom + " : paramètre deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			}
+			IdParam idParam;
+			if(isInteger) {
+				idParam = new IdParam(Type.ENTIER, 0);
+				addTypeParam(Type.ENTIER);
+			}
+			else {
+				idParam = new IdParam(Type.BOOLEEN, 0);
+				addTypeParam(Type.BOOLEEN);
+			}
+			Yaka.tabIdent.rangeIdentLocal(nom, idParam);
+		}
+		catch (DejaDeclareeException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	/**
+	 * Methode pour calculer l'offset des paramètres
+	 * @param nom nom du paramètre declaree
+	 */
+	public void calculOffset(String nom) {
+		HashMap<String,Ident> locaux = Yaka.tabIdent.getLocaux();
+	}
+	
+	/**
+	 * Methode pour enregistrer une fonction dans tabIdent
 	 * 
 	 */
 	public void declFonc() {
-		
+		try {
+			if(Yaka.tabIdent.existeIdentGlobal(nomFonc)) {
+				throw new DejaDeclareeException(nomFonc + " : fonction deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			}
+			Yaka.tabIdent.rangeIdentGlobal(nomFonc, fonction);
+		}
+		catch (DejaDeclareeException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 }
