@@ -8,7 +8,7 @@ package classes;
  */
 public class IdVar extends Ident{
 
-	private int offset;
+	private static int offset;
 	
 
 	/**

@@ -15,8 +15,23 @@ public class IdFonc extends Ident{
 		
 	}
 	
+	/**
+	 * Permet l'ajout de 
+	 * @param type
+	 */
 	public void addArg(Type type) {
 		tabArg.add(type);
+	}
+	
+	public int nbArg() {
+		return this.tabArg.size();
+	}
+	
+	public Type getArg(int n){
+		Type res = null;
+		if (n <= tabArg.size()) return res=this.tabArg.get(n);
+		return res;
+		
 	}
 	
 	

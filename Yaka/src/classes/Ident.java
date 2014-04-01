@@ -6,6 +6,10 @@ package classes;
  */
 public class Ident {
 
+	/**
+	 * Type de la variable ou de la constante
+	 * Pour les fonctions : correspond au type de retour
+	 */
 	private Type type;
 	
 	/**
