@@ -14,13 +14,13 @@ public class IdVar extends Ident{
 	/**
 	 * @return the offset
 	 */
-	public int getOffset() {
+	public static int getOffset() {
 		return offset;
 	}
 
 
-	public void setOffset(int offset) {
-		this.offset = offset;
+	public static void setOffset(int offset) {
+		offset = offset;
 	}
 
 
