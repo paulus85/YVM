@@ -20,6 +20,17 @@ public class TabIdent {
 		locaux = new HashMap<String,Ident> ();
 		globaux = new HashMap<String,IdFonc> ();
 	}
+	
+	
+
+	/**
+	 * @return the locaux
+	 */
+	public HashMap<String, Ident> getLocaux() {
+		return locaux;
+	}
+
+
 
 	/**
 	 * donne l'ident associe a une clef dans la HashMap GLOBAUX

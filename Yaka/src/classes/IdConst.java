@@ -9,7 +9,7 @@ public class IdConst extends Ident{
 	private boolean valBool;
 	
 	/**
-	 * Constructeur constante entière
+	 * Constructeur constante entiere
 	 * @param nom
 	 * @param type
 	 * @param value
@@ -37,7 +37,7 @@ public class IdConst extends Ident{
 
 	
 	/**
-	 * Constructeur constante booléenne
+	 * Constructeur constante booleenne
 	 * @param nom
 	 * @param type
 	 * @param value

@@ -7,7 +7,7 @@ import java.io.*;
 
 public class Lecture {   
     public static InputStream ouvrir(String nomFich) {
- //d�livre un pointeur sur le fichier de nom nomFich (null si erreur)
+ //delivre un pointeur sur le fichier de nom nomFich (null si erreur)
  InputStream f;
  try {f=new DataInputStream(new FileInputStream(nomFich));}
  catch (IOException e) {f=null;}
@@ -15,7 +15,7 @@ public class Lecture {
     }
 
     public static boolean finFichier(InputStream f) {
- //d�termine si la fin de fichier est atteinte
+ //determine si la fin de fichier est atteinte
  try {return (f!=System.in && f.available()==0);}
         catch(IOException e) {System.out.println("pb test finFichier");
                        System.exit(1);
@@ -30,12 +30,12 @@ public class Lecture {
     }
 
 
-    //lecture d'un octet dans la cha�ne d'entr�e (avec capture de l'exception)
+    //lecture d'un octet dans la chaine d'entree (avec capture de l'exception)
 
     public static char lireChar(InputStream f) {
  char carSuiv=' ';
         try {int x=f.read();
-      if (x==-1) {System.out.println("lecture apr�s fin de fichier");
+      if (x==-1) {System.out.println("lecture apres fin de fichier");
                   System.exit(2);}
       carSuiv=(char)x;
  }
