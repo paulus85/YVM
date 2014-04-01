@@ -12,8 +12,8 @@ public class Declaration {
 	private Boolean isInteger;	
 
 	/**
-	 * Methode pour sauvegarder le nom d'une constante
-	 * @param nom le nom de la constante
+	 * Methode pour sauvegarder le nom d'une constante ou d'une fonction
+	 * @param nom le nom de la constante ou de la fonction
 	 */
 	public void setNom(String nom) {
 		this.nom = nom;
@@ -71,7 +71,7 @@ public class Declaration {
 	}
 
 	/**
-	 * Methode pour enregistrer le type de(s) la(les) variable(s) declaree(s) 
+	 * Methode pour enregistrer le type de la variable ou le type de retour de la fonction declaree
 	 * @param b vrai si type entier, faux si type booleen
 	 */
 	public void setIsInteger(boolean b) {
@@ -100,5 +100,21 @@ public class Declaration {
 		catch (DejaDeclareeException e) {
 			System.out.println(e.getMessage());
 		}
+	}
+	
+	/**
+	 * Methode pour ajouter un type d'un paramètre de la fonction
+	 * @param type le type du paramètre
+	 */
+	public void addTypeParam(Type type) {
+		
+	}
+	
+	/**
+	 * Methode pour déclarer une fonction
+	 * 
+	 */
+	public void declFonc() {
+		
 	}
 }

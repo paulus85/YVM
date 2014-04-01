@@ -16,13 +16,16 @@ public class IdFonc extends Ident{
 	}
 	
 	/**
-	 * Permet l'ajout de 
-	 * @param type
+	 * Permet l'ajout d'argument à la fonction
+	 * @param type Type de l'argument
 	 */
 	public void addArg(Type type) {
 		tabArg.add(type);
 	}
 	
+	/**
+	 * @return le nombre d'arugment de la fonction
+	 */
 	public int nbArg() {
 		return this.tabArg.size();
 	}
