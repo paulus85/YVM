@@ -132,7 +132,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       }
       declVar();
     }
-          yvm.ouvrePrinc(Math.abs(tabIdent.offset));
+          yvm.ouvrePrinc(Math.abs(decl.getOffset()));
     suiteInstr();
   }
 
