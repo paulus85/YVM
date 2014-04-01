@@ -6,7 +6,8 @@ package classes;
  */
 public class Ident {
 
-
+	private Type type;
+	
 	/**
 	 * @return the type
 	 */
@@ -14,7 +15,6 @@ public class Ident {
 		return type;
 	}
 
-	private Type type;
 
 	/**
 	 * Constructeur
