@@ -143,7 +143,7 @@ void analyse() : {}
 {
    <PROGRAMME> {yvm.entete();} <ident>
    ( declFonction() )*
-	   <PRINCIPAL>
+	   <PRINCIPAL> {yvm.ouvrePrinc();}
 	   		bloc()
 	   <FPRINCIPAL>
    <FPROGRAMME> {yvm.enqueue();}
@@ -151,11 +151,11 @@ void analyse() : {}
 
 void declFonction() : {}
 {
-	type() <FONCTION> <ident> {expr.ecrireEtiqString(YakaTokenManager.identLu);
+	type() <FONCTION> <ident> {expr.ecrireEtiq(YakaTokenManager.identLu);
 							   decl.setNomFonc(YakaTokenManager.identLu);} 
 	paramForms() {decl.declFonc();}
 	bloc()
-	<FFONCTION>  
+	<FFONCTION>  {yvm.fermeBloc(decl.getNbParams()*2);tabIdent.getLocaux().clear();decl.clear();}
 }
 
 void paramForms() : {}
@@ -228,7 +228,7 @@ void instruction() : {}
   | ecriture()
   | iteration()
   | conditionnelle()
-  | retourne()
+  | retourne() 
 }
 
 void affectation() : {}
@@ -271,7 +271,7 @@ void conditionnelle() : {}
 
 void retourne() : {}
 {
-  <RETOURNE> expression() {tabIdent.getLocaux().clear();}
+  <RETOURNE> expression() {yvm.ireturn(decl.getNbParams()*2+4);}
 }
 
 /*
@@ -307,7 +307,7 @@ void primaire (): {}
 
 void valeur () : {}
 { <entier> {expr.addEntier(YakaTokenManager.entierLu);}		
- | <ident> (argumentsFonction() )?  {expr.addIdent(YakaTokenManager.identLu);}		
+ | <ident> {expr.addIdent(YakaTokenManager.identLu);} ( {yvm.reserveRetour();expr.addFonct(YakaTokenManager.identLu);} argumentsFonction() )?  		
  | <VRAI>  {expr.addEtat(true);}		
  | <FAUX>  {expr.addEtat(false);}		
 }

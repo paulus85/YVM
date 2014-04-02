@@ -60,6 +60,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       declFonction();
     }
     jj_consume_token(PRINCIPAL);
+                        yvm.ouvrePrinc();
     bloc();
     jj_consume_token(FPRINCIPAL);
     jj_consume_token(FPROGRAMME);
@@ -70,12 +71,13 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
     type();
     jj_consume_token(FONCTION);
     jj_consume_token(ident);
-                                   expr.ecrireEtiqString(YakaTokenManager.identLu);
+                                   expr.ecrireEtiq(YakaTokenManager.identLu);
                                                            decl.setNomFonc(YakaTokenManager.identLu);
     paramForms();
                       decl.declFonc();
     bloc();
     jj_consume_token(FFONCTION);
+                      yvm.fermeBloc(decl.getNbParams()*2);tabIdent.getLocaux().clear();decl.clear();
   }
 
   static final public void paramForms() throws ParseException {
@@ -380,7 +382,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
   static final public void retourne() throws ParseException {
     jj_consume_token(RETOURNE);
     expression();
-                           tabIdent.getLocaux().clear();
+                           yvm.ireturn(decl.getNbParams()*2+4);
   }
 
 /*
@@ -497,13 +499,14 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       jj_consume_token(ident);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case 40:
+              yvm.reserveRetour();yvm.call(YakaTokenManager.identLu);
         argumentsFonction();
         break;
       default:
         jj_la1[20] = jj_gen;
         ;
       }
-                                     expr.addIdent(YakaTokenManager.identLu);
+                                                                                                expr.addIdent(YakaTokenManager.identLu);
       break;
     case VRAI:
       jj_consume_token(VRAI);
