@@ -136,7 +136,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       }
       declVar();
     }
-          yvm.ouvBloc(Math.abs(decl.offset));
+          yvm.ouvBloc(Math.abs(decl.getOffset()));
     suiteInstr();
   }
 

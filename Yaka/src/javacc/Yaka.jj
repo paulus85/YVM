@@ -172,7 +172,7 @@ void bloc() : {}
 {
 	 (declConst())*
 	 (declVar())*
-	 {yvm.ouvBloc(Math.abs(decl.offset));}
+	 {yvm.ouvBloc(Math.abs(decl.getOffset()));}
 	 suiteInstr() 
 }
 
