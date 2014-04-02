@@ -151,7 +151,9 @@ void analyse() : {}
 
 void declFonction() : {}
 {
-	type() <FONCTION> <ident> paramForms()
+	type() <FONCTION> <ident> {expr.ecrireEtiqString(YakaTokenManager.identLu);
+							   decl.setNomFonc(YakaTokenManager.identLu);} 
+	paramForms() {decl.declFonc();}
 	bloc()
 	<FFONCTION>  
 }
@@ -163,14 +165,14 @@ void paramForms() : {}
 
 void paramForm() : {}
 {
-	type() <ident> 
+	type() <ident> {decl.declParam(YakaTokenManager.identLu);}
 }
 
 void bloc() : {}
 {
 	 (declConst())*
 	 (declVar())*
-	 {yvm.ouvrePrinc(Math.abs(decl.offset));}
+	 {yvm.ouvBloc(Math.abs(decl.offset));}
 	 suiteInstr() 
 }
 
@@ -269,7 +271,7 @@ void conditionnelle() : {}
 
 void retourne() : {}
 {
-  <RETOURNE> expression()
+  <RETOURNE> expression() {tabIdent.getLocaux().clear();}
 }
 
 /*
