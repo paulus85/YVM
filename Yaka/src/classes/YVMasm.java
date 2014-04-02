@@ -35,8 +35,9 @@ public class YVMasm extends YVM{
 	public void ouvrePrinc () {
 		Ecriture.ecrireStringln(out,"debut:");
 		Ecriture.ecrireStringln(out,"STARTUPCODE");
-		Ecriture.ecrireStringln(out,";main");
 		Ecriture.ecrireStringln(out,"");
+		Ecriture.ecrireStringln(out,"main:");
+		
 	}
 	
 	public void enqueue() {
