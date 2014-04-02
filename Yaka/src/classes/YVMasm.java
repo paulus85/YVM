@@ -29,15 +29,13 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,".model SMALL");
 		Ecriture.ecrireStringln(out,".586");
 		Ecriture.ecrireStringln(out,"\n.CODE");
-		Ecriture.ecrireStringln(out,"debut : ");
-		Ecriture.ecrireStringln(out,"STARTUPCODE");
 		Ecriture.ecrireStringln(out,"");
 	}
 	
-	public void ouvrePrinc (int nbr) {
-		Ecriture.ecrireStringln(out,";ouvrePrinc "+nbr);
-		Ecriture.ecrireStringln(out,"mov bp,sp");
-		Ecriture.ecrireStringln(out,"sub sp,"+nbr);
+	public void ouvrePrinc () {
+		Ecriture.ecrireStringln(out,"debut:");
+		Ecriture.ecrireStringln(out,"STARTUPCODE");
+		Ecriture.ecrireStringln(out,";main");
 		Ecriture.ecrireStringln(out,"");
 	}
 	
@@ -208,13 +206,25 @@ public class YVMasm extends YVM{
 	public void istore(int offset) {
 		Ecriture.ecrireStringln(out,";istore "+offset);
 		Ecriture.ecrireStringln(out,"pop ax");
-		Ecriture.ecrireStringln(out,"mov word ptr[bp"+offset+"],ax");
+		
+		//Pour ne pas avoir de pb avec les + et - dans les bp
+		if(offset>0)
+			Ecriture.ecrireStringln(out,"mov word ptr[bp+"+offset+"],ax");
+		else
+			Ecriture.ecrireStringln(out,"mov word ptr[bp"+offset+"],ax");
+				
 		Ecriture.ecrireStringln(out,"");
 	}
 	
 	public void iload(int offset) {
 		Ecriture.ecrireStringln(out,";iload "+offset);
-		Ecriture.ecrireStringln(out,"push word ptr[bp"+offset+"]");
+		
+		//Pour ne pas avoir de pb avec les + et - dans les bp
+		if(offset>0)
+			Ecriture.ecrireStringln(out,"push word ptr[bp+"+offset+"]");
+		else
+			Ecriture.ecrireStringln(out,"push word ptr[bp"+offset+"]");
+		
 		Ecriture.ecrireStringln(out,"");
 	}
 	
@@ -278,10 +288,16 @@ public class YVMasm extends YVM{
 		Ecriture.ecrireStringln(out,s);
 	}
 	
-	public void ireturn (int v) {
-		Ecriture.ecrireStringln(out,";ireturn " + v);
+	public void ireturn (int offset) {
+		Ecriture.ecrireStringln(out,";ireturn " + offset);
 		Ecriture.ecrireStringln(out,"pop ax");
-		Ecriture.ecrireStringln(out,"mov [bp+" + v + "],ax");
+		
+		//Pour ne pas avoir de pb avec les + et - dans les bp
+		if(offset>0)
+			Ecriture.ecrireStringln(out,"mov [bp+" + offset + "],ax");
+		else
+			Ecriture.ecrireStringln(out,"mov [bp" + offset + "],ax");
+		
 		Ecriture.ecrireStringln(out,"");
 	}
 	

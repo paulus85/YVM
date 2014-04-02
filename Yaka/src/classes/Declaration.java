@@ -154,7 +154,7 @@ public class Declaration {
 	public void calculOffset() {
 		int i;
 		String nom;
-		int taille = listeParams.size() * 2;
+		int taille = listeParams.size();
 		for(i=0;i<taille;i++) {
 			nom = listeParams.get(i);
 			((IdParam) Yaka.tabIdent.chercheIdentLocal(nom)).setOffset(taille + 4 - i * 2);
@@ -180,5 +180,14 @@ public class Declaration {
 	
 	public int getOffset() {
 		return offset;
+	}
+	
+	public int getNbParams() {
+		return listeParams.size();
+	}
+	
+	public void clear() {
+		offset = 0;
+		listeParams.clear();
 	}
 }

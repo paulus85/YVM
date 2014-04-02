@@ -18,6 +18,7 @@ public class Expression {
 	private Stack<String> pile_op;
 	private Stack<Integer> pile_NiveauTANTQUE;
 	private Stack<Integer> pile_NiveauSI;
+	private Stack<String> pile_FONCTION;
 	private Ident variableAffectation = null;
 	private int numEtiqTantque = 0;
 	private int numEtiqSi = 0;
@@ -27,6 +28,7 @@ public class Expression {
 		pile_op = new Stack<String>();
 		pile_NiveauTANTQUE = new Stack<Integer>();
 		pile_NiveauSI = new Stack<Integer>();
+		pile_FONCTION = new Stack<String>();
 	}
 	
 	public void stockIdent(String s) {
@@ -104,6 +106,12 @@ public class Expression {
 				break;
 		}
 	}	
+	
+	public void addFonct(String s) {
+		pile_FONCTION.add(s);
+	}
+	
+	
 	
 	public void verifBool(int etiquette){
 		try{

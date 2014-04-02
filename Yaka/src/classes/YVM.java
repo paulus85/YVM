@@ -21,8 +21,8 @@ public class YVM {
 		Ecriture.ecrireStringln(out,"entete");
 	}
 	
-	public void ouvrePrinc (int nbr) {
-		Ecriture.ecrireStringln(out,"ouvrePrinc "+nbr);
+	public void ouvrePrinc () {
+		Ecriture.ecrireStringln(out,"main:");
 	}
 	
 	public void enqueue() {

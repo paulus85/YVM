@@ -15,7 +15,8 @@ public class IdFonc extends Ident{
 	 */
 	public IdFonc(Type type) {
 		super(type);
-		ArrayList<Type> tabArg = new ArrayList<Type>(0);
+		//Par défaut taille ArrayList = 10 fonctions max dans le programme
+		tabArg = new ArrayList<Type>();
 		
 	}
 	
