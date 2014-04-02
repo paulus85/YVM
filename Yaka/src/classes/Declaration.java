@@ -167,6 +167,7 @@ public class Declaration {
 	 */
 	public void declFonc() {
 		try {
+			calculOffset();
 			if(Yaka.tabIdent.existeIdentGlobal(nomFonc)) {
 				throw new DejaDeclareeException(nomFonc + " : fonction deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}

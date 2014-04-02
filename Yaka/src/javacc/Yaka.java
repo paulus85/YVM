@@ -70,7 +70,10 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
     type();
     jj_consume_token(FONCTION);
     jj_consume_token(ident);
+                                   expr.ecrireEtiqString(YakaTokenManager.identLu);
+                                                           decl.setNomFonc(YakaTokenManager.identLu);
     paramForms();
+                      decl.declFonc();
     bloc();
     jj_consume_token(FFONCTION);
   }
@@ -105,6 +108,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
   static final public void paramForm() throws ParseException {
     type();
     jj_consume_token(ident);
+                        decl.declParam(YakaTokenManager.identLu);
   }
 
   static final public void bloc() throws ParseException {
@@ -132,7 +136,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       }
       declVar();
     }
-          yvm.ouvrePrinc(Math.abs(decl.getOffset()));
+          yvm.ouvBloc(Math.abs(decl.offset));
     suiteInstr();
   }
 
@@ -376,6 +380,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
   static final public void retourne() throws ParseException {
     jj_consume_token(RETOURNE);
     expression();
+                           tabIdent.getLocaux().clear();
   }
 
 /*
