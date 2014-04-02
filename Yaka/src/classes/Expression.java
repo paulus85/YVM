@@ -143,7 +143,7 @@ public class Expression {
 			case YakaConstants.SI : 
 				numEtiqSi++;
 				pile_NiveauSI.push(numEtiqSi);
-				//Pas la peine d'écrire l'étiquette SI ;)
+				//Pas la peine d'ï¿½crire l'ï¿½tiquette SI ;)
 				break;
 			
 			case YakaConstants.SINON :
@@ -157,6 +157,10 @@ public class Expression {
 			default:
 				break;
 		}
+	}
+	
+	public void ecrireEtiq(String s) {
+		Yaka.yvm.ecrireEtiquette(s+":");
 	}
 	
 	public void generationCalcul() {		
