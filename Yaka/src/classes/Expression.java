@@ -108,9 +108,22 @@ public class Expression {
 	}	
 	
 	public void addFonct(String s) {
-		pile_FONCTION.add(s);
+		try {
+			if(!Yaka.tabIdent.existeIdentGlobal(s))
+				throw new NonDeclareeException(s + " : fonction non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			pile_FONCTION.add(s);
+		}
+		catch(NonDeclareeException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
+	public void ecrireFonc() {
+		try {
+			Yaka.yvm.call(pile_FONCTION.pop());
+		}
+		catch(EmptyStackException e){} 
+	}
 	
 	
 	public void verifBool(int etiquette){
