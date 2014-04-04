@@ -15,7 +15,7 @@ public class IdFonc extends Ident{
 	 */
 	public IdFonc(Type type) {
 		super(type);
-		//Par défaut taille ArrayList = 10 fonctions max dans le programme
+		//Par dï¿½faut taille ArrayList = 10 fonctions max dans le programme
 		tabArg = new ArrayList<Type>();
 		
 	}
@@ -31,7 +31,7 @@ public class IdFonc extends Ident{
 	/**
 	 * @return le nombre d'arugment de la fonction
 	 */
-	public int nbArg() {
+	public int nbArg() throws IndexOutOfBoundsException{
 		return this.tabArg.size();
 	}
 	
