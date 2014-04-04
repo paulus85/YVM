@@ -307,7 +307,7 @@ void primaire (): {}
 
 void valeur () : {}
 { <entier> {expr.addEntier(YakaTokenManager.entierLu);}		
- | <ident> {expr.addIdent(YakaTokenManager.identLu);} ( {yvm.reserveRetour();expr.addFonct(YakaTokenManager.identLu);} argumentsFonction() )?  		
+ | <ident> {expr.addIdent(YakaTokenManager.identLu);} ( {yvm.reserveRetour();expr.addFonct(YakaTokenManager.identLu);} argumentsFonction() {expr.ecrireFonc();} )?  		
  | <VRAI>  {expr.addEtat(true);}		
  | <FAUX>  {expr.addEtat(false);}		
 }

@@ -497,16 +497,17 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
       break;
     case ident:
       jj_consume_token(ident);
+            expr.addIdent(YakaTokenManager.identLu);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case 40:
-              yvm.reserveRetour();yvm.call(YakaTokenManager.identLu);
+                                                         yvm.reserveRetour();expr.addFonct(YakaTokenManager.identLu);
         argumentsFonction();
+                                                                                                                                            expr.ecrireFonc();
         break;
       default:
         jj_la1[20] = jj_gen;
         ;
       }
-                                                                                                expr.addIdent(YakaTokenManager.identLu);
       break;
     case VRAI:
       jj_consume_token(VRAI);
