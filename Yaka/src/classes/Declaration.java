@@ -186,6 +186,10 @@ public class Declaration {
 		return listeParams.size();
 	}
 	
+	public String getNomFonc() {
+		return nomFonc;
+	}
+	
 	public void clear() {
 		offset = 0;
 		listeParams.clear();

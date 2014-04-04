@@ -382,7 +382,8 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
   static final public void retourne() throws ParseException {
     jj_consume_token(RETOURNE);
     expression();
-                           yvm.ireturn(decl.getNbParams()*2+4);
+                           expr.verifRetour(decl.getNomFonc());
+                                                                  yvm.ireturn(decl.getNbParams()*2+4);
   }
 
 /*
@@ -500,9 +501,9 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
             expr.addIdent(YakaTokenManager.identLu);
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case 40:
-                                                         yvm.reserveRetour();expr.addFonct(YakaTokenManager.identLu);
+                                                         yvm.reserveRetour();
         argumentsFonction();
-                                                                                                                                            expr.ecrireFonc();
+                                                                                                    expr.ecrireFonc();
         break;
       default:
         jj_la1[20] = jj_gen;
@@ -535,6 +536,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
     case 40:
     case 51:
       expression();
+                            expr.verifTypeParam(); expr.incCompteurParam();
       label_10:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -547,6 +549,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
         }
         jj_consume_token(41);
         expression();
+                                                                                                expr.verifTypeParam(); expr.incCompteurParam();
       }
       break;
     default:

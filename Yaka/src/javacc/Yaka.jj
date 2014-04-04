@@ -271,7 +271,7 @@ void conditionnelle() : {}
 
 void retourne() : {}
 {
-  <RETOURNE> expression() {yvm.ireturn(decl.getNbParams()*2+4);}
+  <RETOURNE> expression() {expr.verifRetour(decl.getNomFonc());} {yvm.ireturn(decl.getNbParams()*2+4);}
 }
 
 /*
@@ -307,14 +307,14 @@ void primaire (): {}
 
 void valeur () : {}
 { <entier> {expr.addEntier(YakaTokenManager.entierLu);}		
- | <ident> {expr.addIdent(YakaTokenManager.identLu);} ( {yvm.reserveRetour();expr.addFonct(YakaTokenManager.identLu);} argumentsFonction() {expr.ecrireFonc();} )?  		
+ | <ident> {expr.addIdent(YakaTokenManager.identLu);} ( {yvm.reserveRetour();} argumentsFonction() {expr.ecrireFonc();} )?  		
  | <VRAI>  {expr.addEtat(true);}		
  | <FAUX>  {expr.addEtat(false);}		
 }
 
 void argumentsFonction() : {}
 {
-	 "(" (expression() ("," expression() )*  )? ")"
+	 "(" (expression() {expr.verifTypeParam(); expr.incCompteurParam();} ("," expression() {expr.verifTypeParam(); expr.incCompteurParam();})*  )? ")"
 }
 
 void opRel() : {}

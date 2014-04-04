@@ -14,11 +14,12 @@ import exceptions.*;
 
 
 public class Expression {
-	private Stack<Type> pile_type;
+	public Stack<Type> pile_type;
 	private Stack<String> pile_op;
 	private Stack<Integer> pile_NiveauTANTQUE;
 	private Stack<Integer> pile_NiveauSI;
 	private Stack<String> pile_FONCTION;
+	private Stack<Integer> pile_nbParams;
 	private Ident variableAffectation = null;
 	private int numEtiqTantque = 0;
 	private int numEtiqSi = 0;
@@ -29,6 +30,7 @@ public class Expression {
 		pile_NiveauTANTQUE = new Stack<Integer>();
 		pile_NiveauSI = new Stack<Integer>();
 		pile_FONCTION = new Stack<String>();
+		pile_nbParams = new Stack<Integer>();
 	}
 	
 	public void stockIdent(String s) {
@@ -74,10 +76,11 @@ public class Expression {
 			}
 			else if(Yaka.tabIdent.existeIdentGlobal(s)) {
 				pile_FONCTION.add(s);
+				pile_nbParams.add(0);
 			}
 			else {
 				pile_type.add(Type.ERREUR);
-				throw new NonDeclareeException(s+ " : non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+				throw new NonDeclareeException(s + " : non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 		}
 		catch(NonDeclareeException e) {
@@ -112,20 +115,14 @@ public class Expression {
 		}
 	}	
 	
-	public void addFonct(String s) {
-		try {
-			if(!Yaka.tabIdent.existeIdentGlobal(s))
-				throw new NonDeclareeException(s + " : fonction non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			pile_FONCTION.add(s);
-		}
-		catch(NonDeclareeException e) {
-			System.out.println(e.getMessage());
-		}
-	}
-	
 	public void ecrireFonc() {
 		try {
-			Yaka.yvm.call(pile_FONCTION.pop());
+			String nomFonc = pile_FONCTION.pop();
+			int nbParams = pile_nbParams.pop();
+			if(nbParams != ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).nbArg()) {
+				System.out.println("Pas assez d'arguments");
+			}
+			Yaka.yvm.call(nomFonc);
 		}
 		catch(EmptyStackException e){} 
 	}
@@ -333,6 +330,40 @@ public class Expression {
 		}
 		catch(ModifConstanteException e2) {
 			System.out.println(e2.getMessage());
+			
 		}
+	}
+	
+	public void verifRetour(String s){
+		try {
+			if(!(pile_type.pop() == Yaka.tabIdent.chercheIdentGlobal(s).getType())) {
+				throw new TypesIncompatiblesException("Type de retour incompatible fonction " + s + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			}
+		}
+		catch (TypesIncompatiblesException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	//TODO exception trop d'arg
+	public void verifTypeParam() {
+		try {
+			String nomFonc = pile_FONCTION.peek();
+			int rangParam = pile_nbParams.peek();
+			System.out.println(pile_type.toString());
+			if(!(pile_type.pop() == ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).getArg(rangParam))) {
+				throw new TypesIncompatiblesException("Type de paramètre incompatible fonction " + nomFonc + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			}
+		}
+		catch (TypesIncompatiblesException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void incCompteurParam() {
+		try {
+			pile_nbParams.add(pile_nbParams.pop()+1);
+		}
+		catch(EmptyStackException e){} 
 	}
 }
