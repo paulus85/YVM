@@ -60,19 +60,24 @@ public class Expression {
 	
 	public void addIdent(String s) {
 		try { 
-			if(!Yaka.tabIdent.existeIdentLocal(s)) {
-				pile_type.add(Type.ERREUR);
-				throw new NonDeclareeException(s+ " : variable ou constante non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			if(Yaka.tabIdent.existeIdentLocal(s)) {
+				Ident ident = Yaka.tabIdent.chercheIdentLocal(s);
+				pile_type.add(ident.getType());
+				if(ident instanceof IdVar)
+					Yaka.yvm.iload(((IdVar) ident).getOffset());
+				else {
+					if(ident.getType() == Type.ENTIER)
+						Yaka.yvm.iconst(((IdConst) ident).getValInt());
+					else
+						Yaka.yvm.iconst(((IdConst) ident).getValBool());
+				}
 			}
-			Ident ident = Yaka.tabIdent.chercheIdentLocal(s);
-			pile_type.add(ident.getType());
-			if(ident instanceof IdVar)
-				Yaka.yvm.iload(((IdVar) ident).getOffset());
+			else if(Yaka.tabIdent.existeIdentGlobal(s)) {
+				pile_FONCTION.add(s);
+			}
 			else {
-				if(ident.getType() == Type.ENTIER)
-					Yaka.yvm.iconst(((IdConst) ident).getValInt());
-				else
-					Yaka.yvm.iconst(((IdConst) ident).getValBool());
+				pile_type.add(Type.ERREUR);
+				throw new NonDeclareeException(s+ " : non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 		}
 		catch(NonDeclareeException e) {
