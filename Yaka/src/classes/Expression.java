@@ -187,7 +187,6 @@ public class Expression {
 	}
 	
 	public void generationCalcul() {		
-		
 		try{
 			String op = pile_op.pop();
 			Type type1 = pile_type.pop();
@@ -350,8 +349,7 @@ public class Expression {
 		try {
 			String nomFonc = pile_FONCTION.peek();
 			int rangParam = pile_nbParams.peek();
-			System.out.println(pile_type.toString());
-			if(!(pile_type.pop() == ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).getArg(rangParam))) {
+			if(!(pile_type.peek() == ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).getArg(rangParam))) {
 				throw new TypesIncompatiblesException("Type de paramètre incompatible fonction " + nomFonc + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 		}
