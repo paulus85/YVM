@@ -119,12 +119,14 @@ public class Expression {
 		try {
 			String nomFonc = pile_FONCTION.pop();
 			int nbParams = pile_nbParams.pop();
-			if(nbParams != ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).nbArg()) {
-				System.out.println("Pas assez d'arguments");
+			if(nbParams < ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).nbArg()) {
+				throw new TooFewArgumentsException("Pas assez de paramètres fonction " + nomFonc + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			Yaka.yvm.call(nomFonc);
 		}
-		catch(EmptyStackException e){} 
+		catch(TooFewArgumentsException e) {
+			System.out.println(e.getMessage());
+		} 
 	}
 	
 	
@@ -344,24 +346,25 @@ public class Expression {
 		}
 	}
 	
-	//TODO exception trop d'arg
 	public void verifTypeParam() {
 		try {
 			String nomFonc = pile_FONCTION.peek();
 			int rangParam = pile_nbParams.peek();
-			if(!(pile_type.peek() == ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).getArg(rangParam))) {
+			Type typeParam = ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).getArg(rangParam);
+			if(typeParam == null) 
+				throw new TooManyArgumentsException("Trop de paramètres fonction " + nomFonc + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			if(pile_type.peek() != typeParam)
 				throw new TypesIncompatiblesException("Type de paramètre incompatible fonction " + nomFonc + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			}
 		}
 		catch (TypesIncompatiblesException e) {
 			System.out.println(e.getMessage());
+		} 
+		catch (TooManyArgumentsException e2) {
+			System.out.println(e2.getMessage());
 		}
 	}
 	
 	public void incCompteurParam() {
-		try {
-			pile_nbParams.add(pile_nbParams.pop()+1);
-		}
-		catch(EmptyStackException e){} 
+		pile_nbParams.add(pile_nbParams.pop()+1);
 	}
 }

@@ -31,7 +31,7 @@ public class IdFonc extends Ident{
 	/**
 	 * @return le nombre d'arugment de la fonction
 	 */
-	public int nbArg() throws IndexOutOfBoundsException{
+	public int nbArg() throws IndexOutOfBoundsException {
 		return this.tabArg.size();
 	}
 	
@@ -39,11 +39,10 @@ public class IdFonc extends Ident{
 	 * @param n le numero de l'argument 
 	 * @return le type de l'argument dont le numero est n
 	 */
-	public Type getArg(int n){
+	public Type getArg(int n) {
 		Type res = null;
-		if (n <= tabArg.size()) return res=this.tabArg.get(n);
+		if (n < tabArg.size()) return res=this.tabArg.get(n);
 		return res;
-		
 	}
 	
 	
