@@ -18,7 +18,7 @@ public class Expression {
 	private Stack<String> pile_op;
 	private Stack<Integer> pile_NiveauTANTQUE;
 	private Stack<Integer> pile_NiveauSI;
-	private Stack<String> pile_FONCTION;
+	private Stack<String> pile_fonction;
 	private Stack<Integer> pile_nbParams;
 	private Ident variableAffectation = null;
 	private int numEtiqTantque = 0;
@@ -29,7 +29,7 @@ public class Expression {
 		pile_op = new Stack<String>();
 		pile_NiveauTANTQUE = new Stack<Integer>();
 		pile_NiveauSI = new Stack<Integer>();
-		pile_FONCTION = new Stack<String>();
+		pile_fonction = new Stack<String>();
 		pile_nbParams = new Stack<Integer>();
 	}
 	
@@ -75,7 +75,7 @@ public class Expression {
 				}
 			}
 			else if(Yaka.tabIdent.existeIdentGlobal(s)) {
-				pile_FONCTION.add(s);
+				pile_fonction.add(s);
 				pile_nbParams.add(0);
 			}
 			else {
@@ -117,7 +117,7 @@ public class Expression {
 	
 	public void ecrireFonc() {
 		try {
-			String nomFonc = pile_FONCTION.pop();
+			String nomFonc = pile_fonction.pop();
 			int nbParams = pile_nbParams.pop();
 			if(nbParams < ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).nbArg()) {
 				throw new TooFewArgumentsException("Pas assez de paramètres fonction " + nomFonc + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
@@ -348,7 +348,7 @@ public class Expression {
 	
 	public void verifTypeParam() {
 		try {
-			String nomFonc = pile_FONCTION.peek();
+			String nomFonc = pile_fonction.peek();
 			int rangParam = pile_nbParams.peek();
 			Type typeParam = ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).getArg(rangParam);
 			if(typeParam == null) 
