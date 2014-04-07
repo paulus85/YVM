@@ -314,7 +314,7 @@ void valeur () : {}
 
 void argumentsFonction() : {}
 {
-	 "(" (expression() {expr.verifTypeParam(); expr.incCompteurParam();} ("," expression() {expr.verifTypeParam(); expr.incCompteurParam();})*  )? ")"
+	 "(" (expression() {expr.verifTypeParam();} ("," expression() {expr.verifTypeParam();})*  )? ")"
 }
 
 void opRel() : {}

@@ -536,7 +536,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
     case 40:
     case 51:
       expression();
-                            expr.verifTypeParam(); expr.incCompteurParam();
+                            expr.verifTypeParam();
       label_10:
       while (true) {
         switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -549,7 +549,7 @@ public static YVMasm yvm = new YVMasm(); //Classe YVM pour la generation */
         }
         jj_consume_token(41);
         expression();
-                                                                                                expr.verifTypeParam(); expr.incCompteurParam();
+                                                                                                expr.verifTypeParam();
       }
       break;
     default:
