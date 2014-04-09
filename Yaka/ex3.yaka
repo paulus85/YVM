@@ -30,7 +30,8 @@ VAR ENTIER cnp,anp,n,p,rep;
       SI rep = 0 ALORS
         ECRIRE("n:");LIRE(n);ALALIGNE;
         ECRIRE("fact(n)= ");
-	p=facto(n);ECRIRE(p)
+	p=facto(n);
+	ECRIRE(p);
        SINON  SI rep<>3 ALORS
                  ECRIRE("n:");LIRE(n);ALALIGNE;
                  ECRIRE("p:");LIRE(p);ALALIGNE;

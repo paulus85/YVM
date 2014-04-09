@@ -23,6 +23,8 @@ public class Expression {
 	private Ident variableAffectation = null;
 	private int numEtiqTantque = 0;
 	private int numEtiqSi = 0;
+	private boolean sinon = false;
+	private boolean isOpNegBool;
 	
 	public Expression() {
 		pile_type = new Stack<Type>();
@@ -69,7 +71,10 @@ public class Expression {
 			Yaka.yvm.istore(((IdVar) variableAffectation).getOffset());
 		
 		// On depile le type de la variable affectation verifiee
-		pile_type.pop();
+		//pile_type.pop();
+		if(variableAffectation.getType() != pile_type.peek() && variableAffectation.getType() != Type.ERREUR)
+			System.out.println("Erreur de type sur l'affectation : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+		
 	}
 	
 	/**
@@ -160,10 +165,14 @@ public class Expression {
 		} catch(EmptyStackException e) {} // (n'est pas cense arriver d'apres la grammaire)
 		switch(type) {
 			case ENTIER : 
+				if(isOpNegBool)
+					System.out.println("Erreur : operateur NON pour entier ligne :" + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 				// ineg pour les entiers
 				Yaka.yvm.ineg();
 				break;
 			case BOOLEEN :
+				if(!isOpNegBool)
+					System.out.println("Erreur : operateur - pour booleen ligne :" + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 				// inot pour les booleens
 				Yaka.yvm.inot();
 				break;
@@ -218,7 +227,8 @@ public class Expression {
 					if(type2 != Type.BOOLEEN && type2 != Type.ERREUR)
 						throw new ExprNonBoolException("Booleen attendu ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 					// Appelle l'instruction iffaux avec la bonne etiquette
-					Yaka.yvm.iffaux("SINON"+numEtiqSi);break;
+					Yaka.yvm.iffaux("SINON"+numEtiqSi);
+					break;
 			}	
 		}
 		catch(EmptyStackException e){} 
@@ -254,7 +264,6 @@ public class Expression {
 			case YakaConstants.SI : 
 				// Incremente le numero d'etiquette si
 				numEtiqSi++;
-				System.out.println("SI " +numEtiqSi);
 				// Ajoute le numero d'etiquette dans la pile de niveau de si
 				pile_NiveauSI.push(numEtiqSi);
 				//Pas la peine d'ecrire l'etiquette SI ;)
@@ -262,16 +271,14 @@ public class Expression {
 
 			// Si l'etiquette est SINON
 			case YakaConstants.SINON :
-				System.out.println(numEtiqSi);
 				// Appelle la methode gotoY en donnant le bon numero d'etiquette
-				Yaka.yvm.gotoY("FSI"+numEtiqSi);
+				Yaka.yvm.gotoY("FSI"+pile_NiveauSI.peek());
 				// Ecrit l'etiquette SINON suivie du bon numero d'etiquette
-				ecrireEtiq("SINON"+numEtiqSi);
+				ecrireEtiq("SINON"+pile_NiveauSI.peek());
 				break;
 				
 			// Si l'etiquette est FSI
 			case YakaConstants.FSI :
-				System.out.println("FSI " +numEtiqSi);
 				// Ecrit l'etiquette FSI suivie du bon numero d'etiquette
 				ecrireEtiq("FSI"+pile_NiveauSI.pop());
 				break;
@@ -415,7 +422,7 @@ public class Expression {
 			type = pile_type.pop();
 		} catch(EmptyStackException e){}
 		switch(type) {
-			case ENTIER : 
+			case ENTIER : 				
 				// ecrireEnt pour les entiers
 				Yaka.yvm.ecrireEnt();
 				break;
@@ -508,6 +515,10 @@ public class Expression {
 		}
 		// On incremente le rang de paramatre de 1
 		pile_nbParams.add(pile_nbParams.pop()+1);
+	}
+	
+	public void isOpNegBool(boolean b){
+		isOpNegBool = b;
 	}
 	
 }

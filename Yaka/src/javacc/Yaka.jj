@@ -262,8 +262,8 @@ void conditionnelle() : {}
   <SI> 
   	{expr.ecrireEtiq(YakaConstants.SI);} expression() {expr.verifBool(YakaConstants.SI);} 
   <ALORS> 
-  	suiteInstr() 
-  ( <SINON> {expr.ecrireEtiq(YakaConstants.SINON);}
+  	suiteInstr() {expr.ecrireEtiq(YakaConstants.SINON);}
+  ( <SINON> 
   	 suiteInstr() )?
   <FSI>
   	{expr.ecrireEtiq(YakaConstants.FSI);}
@@ -342,8 +342,8 @@ void opMul() : {}
 } 
 
 void opNeg() : {}
-{ "-" 		
- | <NON>
+{ "-" 		{expr.isOpNegBool(false);}	
+ | <NON>	{expr.isOpNegBool(true);}
 }
 
 

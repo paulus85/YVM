@@ -158,7 +158,7 @@ public class Declaration {
 		int taille = listeParams.size();
 		for(i=0;i<taille;i++) {
 			nom = listeParams.get(i);
-			((IdParam) Yaka.tabIdent.chercheIdentLocal(nom)).setOffset(taille + 4 - i * 2);
+			((IdParam) Yaka.tabIdent.chercheIdentLocal(nom)).setOffset(taille*2 + 4 - (i+1) * 2);
 		}
 	}
 	

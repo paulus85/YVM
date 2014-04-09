@@ -236,9 +236,10 @@ public class YVMasm extends YVM{
 	}
 	
 	public void ecrireChaine(String s) {
+		String s2 = s.substring(1);
 		Ecriture.ecrireStringln(out,";ecrireChaine "+s);
 		Ecriture.ecrireStringln(out,".DATA");
-		Ecriture.ecrireStringln(out,"mess"+indexVar+" DB "+s.substring(0, s.length() -1)+"$\"");
+		Ecriture.ecrireStringln(out,"mess"+indexVar+" DB \""+ s2.substring(0, s2.length() -1)+"$\"");
 		Ecriture.ecrireStringln(out,".CODE");
 		Ecriture.ecrireStringln(out,"lea dx,mess"+indexVar);
 		Ecriture.ecrireStringln(out,"push dx");

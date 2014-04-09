@@ -1,0 +1,8 @@
+err01:  e : constante deja declaree ligne : 9 colonne : 9
+	a : Impossible de modifier une constante ligne : 12 colonne : 3
+	
+err02:  a : variable deja declaree ligne : 5 colonne : 35
+	x : variable deja declaree ligne : 6 colonne : 30
+	xx : non declaree ligne : 8 colonne : 6
+	
+
