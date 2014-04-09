@@ -67,6 +67,9 @@ public class Expression {
 		if(variableAffectation != null)
 			// Appelle l'instruction istore
 			Yaka.yvm.istore(((IdVar) variableAffectation).getOffset());
+		
+		// On depile le type de la variable affectation verifiee
+		pile_type.pop();
 	}
 	
 	/**
@@ -82,14 +85,15 @@ public class Expression {
 	
 	/**
 	 * Si l'ident est present dans la table des idents locaux, ajoute le type de l'ident dans la pile de type et appelle l'instruction iconst
-	 * Si il est present dans la table des idents globaux, 
+	 * Si il est present dans la table des idents globaux, on ajoute le type de retour de la fonction dans la pile de type pile_type et 
+	 * enregistre le nom de la fonction dans pile_Fonc et initialise la pile_Param pour compter les parametres 
 	 * @param nom de l'identifiant
 	 */
 	public void addIdent(String s) {
 		try { 
 			// Si l'ident existe dans la table des idents locaux,
 			if(Yaka.tabIdent.existeIdentLocal(s)) {
-				Ident ident = Yaka.tabIdent.chercheIdentLocal(s);System.out.println(s+ " "+ident.getType());
+				Ident ident = Yaka.tabIdent.chercheIdentLocal(s);
 				// on ajoute son type a la pile des types
 				pile_type.add(ident.getType());
 				// Si il s'est une variable, on appelle l'instruction iload avec son offset
@@ -105,7 +109,7 @@ public class Expression {
 			}
 			// Sinon, si l'ident existe dans la table des idents globaux (fonction)
 			else if(Yaka.tabIdent.existeIdentGlobal(s)) {
-				
+				//on ajoute le type de retour de la fonction
 				pile_type.add(Yaka.tabIdent.chercheIdentGlobal(s).getType());
 				
 				// on ajout son nom dans la pile des fonctions
@@ -179,8 +183,8 @@ public class Expression {
 			// Recupere le nom de parametres comptes pour la fonction
 			int nbParams = pile_nbParams.pop();
 			// Genere une erreur si le nombre de parametre n'est pas celui prevu pour la fonction
-			if(nbParams != ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).nbArg()) {
-				throw new TooFewArgumentsException("Pas assez/trop de paramètres fonction " + nomFonc + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			if(nbParams < ((IdFonc) Yaka.tabIdent.chercheIdentGlobal(nomFonc)).nbArg()) {
+				throw new TooFewArgumentsException("Pas assez de paramètres fonction " + nomFonc + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 			// Appelle l'instruction call
 			Yaka.yvm.call(nomFonc);
@@ -250,6 +254,7 @@ public class Expression {
 			case YakaConstants.SI : 
 				// Incremente le numero d'etiquette si
 				numEtiqSi++;
+				System.out.println("SI " +numEtiqSi);
 				// Ajoute le numero d'etiquette dans la pile de niveau de si
 				pile_NiveauSI.push(numEtiqSi);
 				//Pas la peine d'ecrire l'etiquette SI ;)
@@ -257,6 +262,7 @@ public class Expression {
 
 			// Si l'etiquette est SINON
 			case YakaConstants.SINON :
+				System.out.println(numEtiqSi);
 				// Appelle la methode gotoY en donnant le bon numero d'etiquette
 				Yaka.yvm.gotoY("FSI"+numEtiqSi);
 				// Ecrit l'etiquette SINON suivie du bon numero d'etiquette
@@ -265,6 +271,7 @@ public class Expression {
 				
 			// Si l'etiquette est FSI
 			case YakaConstants.FSI :
+				System.out.println("FSI " +numEtiqSi);
 				// Ecrit l'etiquette FSI suivie du bon numero d'etiquette
 				ecrireEtiq("FSI"+pile_NiveauSI.pop());
 				break;
@@ -491,7 +498,7 @@ public class Expression {
 				throw new TooManyArgumentsException("Trop de paramètres fonction " + nomFonc + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			// Sinon, si le type du parametre est different de celui qu'il devrait avoir, on genere un message d'erreur
 			else if( pile_type.pop() != typeParam)
-				throw new TypesIncompatiblesException("Type de paramètre incompatible fonction " + nomFonc + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+				throw new TypesIncompatiblesException("Type de paramètre incompatible fonction " + nomFonc +  " paramètre " + (rangParam+1) + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 		}
 		catch (TypesIncompatiblesException e) {
 			System.out.println(e.getMessage());
@@ -500,7 +507,7 @@ public class Expression {
 			System.out.println(e2.getMessage());
 		}
 		// On incremente le rang de paramatre de 1
-		pile_nbParams.add(pile_nbParams.pop()+1);	System.out.println(pile_type.toString());	
+		pile_nbParams.add(pile_nbParams.pop()+1);
 	}
 	
 }

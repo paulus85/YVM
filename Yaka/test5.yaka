@@ -4,7 +4,7 @@ VAR BOOLEEN b,c;
 VAR ENTIER k;
 	k = i;
 	SI k>j ALORS RETOURNE k
-	SINON RETOURNE j FSI
+	SINON RETOURNE b FSI
 FFONCTION
 
 ENTIER FONCTION min (ENTIER i, ENTIER j)
@@ -21,7 +21,7 @@ VAR ENTIER i,j,k;
 VAR BOOLEEN b;
 	i=5;LIRE(j);ALALIGNE;
 	k=max (i,min(j,5))+2;
-	b=sup(1+max(i,j-5),min(i*2,j));
+	b=sup(1+max(i,j-5));
 	ALALIGNE;
 	ECRIRE(k);
 	ALALIGNE;

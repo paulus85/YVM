@@ -9,6 +9,7 @@ import exceptions.DejaDeclareeException;
 * @author paulriviere
 *
 */
+
 public class Declaration {
 	private String nom;
 	private String nomFonc;
@@ -178,18 +179,31 @@ public class Declaration {
 		}
 	}
 	
+	
+	/**
+	 * @return l'offset
+	 */
 	public int getOffset() {
 		return offset;
 	}
 	
+	/**
+	 * @return nombre de parametre(s)
+	 */
 	public int getNbParams() {
 		return listeParams.size();
 	}
 	
+	/**
+	 * @return nom de la fonction
+	 */
 	public String getNomFonc() {
 		return nomFonc;
 	}
 	
+	/**
+	 * remise à zéro de l'offset et de la liste des paramètres
+	 */
 	public void clear() {
 		offset = 0;
 		listeParams.clear();

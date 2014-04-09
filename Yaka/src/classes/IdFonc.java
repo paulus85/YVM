@@ -29,7 +29,7 @@ public class IdFonc extends Ident{
 	}
 	
 	/**
-	 * @return le nombre d'arugment de la fonction
+	 * @return le nombre d'argument de la fonction
 	 */
 	public int nbArg() throws IndexOutOfBoundsException {
 		return this.tabArg.size();
