@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import javacc.Yaka;
 import exceptions.DejaDeclareeException;
+import exceptions.NonDeclareeException;
 
 /**
 * Gestion des declarations de variables et constantes (appels vers Ident, etc.)
@@ -66,6 +67,8 @@ public class Declaration {
 	 */
 	public void declConst(String nomSource) {
 		try {
+			if(!Yaka.tabIdent.existeIdentLocal(nomSource)) 
+				throw new NonDeclareeException(nomSource + " : non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			if(Yaka.tabIdent.existeIdentLocal(this.nom)) {
 				throw new DejaDeclareeException(this.nom + " : constante deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
@@ -73,6 +76,9 @@ public class Declaration {
 			Yaka.tabIdent.rangeIdentLocal(this.nom, constante);
 		}
 		catch (DejaDeclareeException e) {
+			System.out.println(e.getMessage());
+		}
+		catch(NonDeclareeException e) {
 			System.out.println(e.getMessage());
 		}
 	}
@@ -205,6 +211,7 @@ public class Declaration {
 	 * remise à zéro de l'offset et de la liste des paramètres
 	 */
 	public void clear() {
+		nomFonc = null;
 		offset = 0;
 		listeParams.clear();
 	}

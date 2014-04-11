@@ -66,15 +66,15 @@ public class Expression {
 	 */
 	public void affect(){
 		// Si un identifiant variable d'affectation a ete designe,
-		if(variableAffectation != null)
+		if(variableAffectation != null) {
 			// Appelle l'instruction istore
 			Yaka.yvm.istore(((IdVar) variableAffectation).getOffset());
 		
-		// On depile le type de la variable affectation verifiee
-		//pile_type.pop();
-		if(variableAffectation.getType() != pile_type.peek() && variableAffectation.getType() != Type.ERREUR)
-			System.out.println("Erreur de type sur l'affectation : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-		
+			// On depile le type de la variable affectation verifiee
+			//pile_type.pop();
+			if(variableAffectation.getType() != pile_type.peek() && pile_type.peek() != Type.ERREUR)
+				System.out.println("Erreur de type sur l'affectation : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+		}
 	}
 	
 	/**
@@ -474,12 +474,19 @@ public class Expression {
 	 * */
 	public void verifRetour(String s){
 		try {
-			// Recupere le type de la valeur a retourner
-			Type type = pile_type.pop();
-			// Si il est different de celui definit par la fonction et qu'il n'est pas ERREUR, on genere un massage d'erreur
-			if(type != Yaka.tabIdent.chercheIdentGlobal(s).getType() && type != Type.ERREUR) {
-				throw new TypesIncompatiblesException("Type de retour incompatible fonction " + s + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			if(s != null) {
+				// Recupere le type de la valeur a retourner
+				Type type = pile_type.pop();
+				
+				// Si il est different de celui definit par la fonction et qu'il n'est pas ERREUR, on genere un massage d'erreur
+				if(type != Yaka.tabIdent.chercheIdentGlobal(s).getType() && type != Type.ERREUR) {
+					throw new TypesIncompatiblesException("Type de retour incompatible fonction " + s + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+				}
 			}
+			else {
+				System.out.println("RETOURNE non autorise dans programme principal ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			}
+				
 		}
 		catch (TypesIncompatiblesException e) {
 			System.out.println(e.getMessage());
@@ -511,6 +518,7 @@ public class Expression {
 			System.out.println(e.getMessage());
 		} 
 		catch (TooManyArgumentsException e2) {
+			pile_type.add(Type.ERREUR);
 			System.out.println(e2.getMessage());
 		}
 		// On incremente le rang de paramatre de 1
