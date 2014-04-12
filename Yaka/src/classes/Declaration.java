@@ -33,9 +33,8 @@ public class Declaration {
 	 */
 	public void declConst(int val) {
 		try {
-			if(Yaka.tabIdent.existeIdentLocal(this.nom)) {
+			if(Yaka.tabIdent.existeIdentLocal(this.nom))
 				throw new DejaDeclareeException(this.nom + " : constante deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			}
 			IdConst constante = new IdConst(Type.ENTIER, val);
 			Yaka.tabIdent.rangeIdentLocal(this.nom, constante);
 		}
@@ -50,9 +49,8 @@ public class Declaration {
 	 */
 	public void declConst(boolean val) {
 		try {
-			if(Yaka.tabIdent.existeIdentLocal(this.nom)) {
+			if(Yaka.tabIdent.existeIdentLocal(this.nom)) 
 				throw new DejaDeclareeException(this.nom + " : constante deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			}
 			IdConst constante = new IdConst(Type.BOOLEEN, val);
 			Yaka.tabIdent.rangeIdentLocal(this.nom, constante);
 		}
@@ -69,9 +67,8 @@ public class Declaration {
 		try {
 			if(!Yaka.tabIdent.existeIdentLocal(nomSource)) 
 				throw new NonDeclareeException(nomSource + " : non declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			if(Yaka.tabIdent.existeIdentLocal(this.nom)) {
+			if(Yaka.tabIdent.existeIdentLocal(this.nom))
 				throw new DejaDeclareeException(this.nom + " : constante deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			}
 			IdConst constante = (IdConst) Yaka.tabIdent.chercheIdentLocal(nomSource);
 			Yaka.tabIdent.rangeIdentLocal(this.nom, constante);
 		}
@@ -97,17 +94,14 @@ public class Declaration {
 	 */
 	public void declVar(String nom) {
 		try {
-			if(Yaka.tabIdent.existeIdentLocal(nom)) {
+			if(Yaka.tabIdent.existeIdentLocal(nom))
 				throw new DejaDeclareeException(nom + " : variable deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			}
 			IdVar variable;
 			offset -= 2;
-			if(isInteger) {
+			if(isInteger)
 				variable = new IdVar(Type.ENTIER, offset);			
-			}
-			else {
+			else
 				variable = new IdVar(Type.BOOLEEN, offset);
-			}
 			Yaka.tabIdent.rangeIdentLocal(nom, variable);
 		}
 		catch (DejaDeclareeException e) {
@@ -133,9 +127,8 @@ public class Declaration {
 	 */
 	public void declParam(String nom) {
 		try {
-			if(Yaka.tabIdent.existeIdentLocal(nom)) {
+			if(Yaka.tabIdent.existeIdentLocal(nom))
 				throw new DejaDeclareeException(nom + " : paramètre deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			}
 			IdParam idParam;
 			if(isInteger) {
 				idParam = new IdParam(Type.ENTIER, 0);
@@ -175,9 +168,8 @@ public class Declaration {
 	public void declFonc() {
 		try {
 			calculOffset();
-			if(Yaka.tabIdent.existeIdentGlobal(nomFonc)) {
+			if(Yaka.tabIdent.existeIdentGlobal(nomFonc)) 
 				throw new DejaDeclareeException(nomFonc + " : fonction deja declaree ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-			}
 			Yaka.tabIdent.rangeIdentGlobal(nomFonc, fonction);
 		}
 		catch (DejaDeclareeException e) {

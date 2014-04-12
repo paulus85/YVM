@@ -23,7 +23,6 @@ public class Expression {
 	private Ident variableAffectation = null;
 	private int numEtiqTantque = 0;
 	private int numEtiqSi = 0;
-	private boolean sinon = false;
 	private boolean isOpNegBool;
 	
 	public Expression() {
@@ -65,15 +64,18 @@ public class Expression {
 	 * Appelle l'instruction istore avec l'ident d'affectation actuel si il existe
 	 */
 	public void affect(){
+		try {
 		// Si un identifiant variable d'affectation a ete designe,
-		if(variableAffectation != null) {
-			// Appelle l'instruction istore
-			Yaka.yvm.istore(((IdVar) variableAffectation).getOffset());
-		
-			// On depile le type de la variable affectation verifiee
-			//pile_type.pop();
-			if(variableAffectation.getType() != pile_type.peek() && pile_type.peek() != Type.ERREUR)
-				System.out.println("Erreur de type sur l'affectation : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			if(variableAffectation != null) {
+				// Appelle l'instruction istore
+				Yaka.yvm.istore(((IdVar) variableAffectation).getOffset());
+				// On depile le type de la variable affectation verifiee
+				if(variableAffectation.getType() != pile_type.peek() && pile_type.peek() != Type.ERREUR)
+						throw new AffectationTypeException("Erreur de type sur l'affectation : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			}
+		} 
+		catch (AffectationTypeException e) {
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -231,7 +233,6 @@ public class Expression {
 					break;
 			}	
 		}
-		catch(EmptyStackException e){} 
 		catch(ExprNonBoolException e2){
 			System.out.println(e2.getMessage());
 		}
@@ -474,21 +475,22 @@ public class Expression {
 	 * */
 	public void verifRetour(String s){
 		try {
-			if(s != null) {
-				// Recupere le type de la valeur a retourner
-				Type type = pile_type.pop();
-				
-				// Si il est different de celui definit par la fonction et qu'il n'est pas ERREUR, on genere un massage d'erreur
-				if(type != Yaka.tabIdent.chercheIdentGlobal(s).getType() && type != Type.ERREUR) {
-					throw new TypesIncompatiblesException("Type de retour incompatible fonction " + s + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
-				}
-			}
-			else {
-				System.out.println("RETOURNE non autorise dans programme principal ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			if(s == null)
+				throw new RetourPrincException("RETOURNE non autorise dans programme principal ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
+			
+			// Recupere le type de la valeur a retourner
+			Type type = pile_type.pop();
+			
+			// Si il est different de celui definit par la fonction et qu'il n'est pas ERREUR, on genere un massage d'erreur
+			if(type != Yaka.tabIdent.chercheIdentGlobal(s).getType() && type != Type.ERREUR) {
+				throw new RetourTypeException("Type de retour incompatible fonction " + s + " ligne : " + Yaka.token.beginLine + " colonne : " + Yaka.token.beginColumn);
 			}
 				
 		}
-		catch (TypesIncompatiblesException e) {
+		catch (RetourPrincException e) {
+			System.out.println(e.getMessage());
+		}
+		catch (RetourTypeException e) {
 			System.out.println(e.getMessage());
 		}
 		catch(EmptyStackException e){
